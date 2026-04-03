@@ -1,0 +1,16 @@
+.section1 {
+
+    .h1 {
+        font-weight: bold;
+    }
+}
+
+
+.section2 {
+
+    .span {
+        font-size: 18px;
+        color: var(--color-primary);
+    }
+
+}

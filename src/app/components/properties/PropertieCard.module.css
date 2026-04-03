@@ -1,0 +1,47 @@
+.card {
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    color: black;
+
+
+    .btn-favorite {
+        position: absolute;
+        top: 16px;
+        right: 11%;
+        --btn-bg: #F5F5F5;
+        border-radius: 5px;
+        transition: all 0.2s ease;
+        box-shadow: none;
+        border: none;
+
+        &:hover {
+            --btn-bg: color-mix(in oklab, #99331A, #F5F5F5 7%);
+
+            svg {
+                fill: white;
+            }
+        }
+
+        svg {
+            fill: #565656;
+            transition: all 0.2s ease;
+        }
+
+
+        &.active {
+            --btn-bg: #99331A;
+            color: #FFFFFF;
+
+            svg {
+                fill: white;
+            }
+        }
+    }
+
+}
