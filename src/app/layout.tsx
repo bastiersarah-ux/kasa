@@ -4,6 +4,7 @@ import ClientProviders from "@/app/ClientProvider";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,22 @@ export default function RootLayout({
               <Header />
               {children}
               <Footer />
+            </div>
+            <div className="drawer-side">
+              <label htmlFor="drawer-toggle" className="drawer-overlay"></label>
+              <aside className="menu h-full p-4 w-64 bg-base-100 text-base-content">
+                <ul className="space-y-2">
+                  <li>
+                    <Link href="/">Accueil</Link>
+                  </li>
+                  <li>
+                    <Link href="/about">À propos</Link>
+                  </li>
+                  <li>
+                    <Link href="/">+ Ajouter un logement</Link>
+                  </li>
+                </ul>
+              </aside>
             </div>
           </div>
         </ClientProviders>

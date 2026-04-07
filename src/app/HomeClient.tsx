@@ -14,7 +14,7 @@ type Props = {
 /** Page d'accueil avec les propriétés */
 export default function HomeClient({ properties }: Props) {
   return (
-    <>
+    <div className={`page-content ${styles.content}`}>
       <div>
         <h1>Chez vous, partout et ailleurs</h1>
         <h3>
@@ -23,51 +23,46 @@ export default function HomeClient({ properties }: Props) {
         </h3>
       </div>
 
-      <Image
-        src={HomeImg}
-        alt="Photo page d'accueil"
-        className="w-full h-auto"
-      />
+      <Image src={HomeImg} alt="Photo page d'accueil" className="w-full" />
 
       <PropertiesList properties={properties} />
 
       <section className={`py-16 ${styles.container}`}>
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-2xl font-semibold mb-4">Comment ça marche ?</p>
+        <p className="text-2xl text-center font-semibold">
+          Comment ça marche ?
+        </p>
 
-          <h3 className="text-black max-w-2xl mx-auto mb-10">
-            Que vous partiez pour un week-end improvisé, des vacances en famille
-            ou un voyage professionnel, Kasa vous aide à trouver un lieu qui
-            vous ressemble.
-          </h3>
+        <h3 className="text-black">
+          Que vous partiez pour un week-end improvisé, des vacances en famille
+          ou un voyage professionnel, Kasa vous aide à trouver un lieu qui vous
+          ressemble.
+        </h3>
 
-          <div className="grid md:grid-cols-3 gap-16">
-            <div className={`p-6 rounded-xl text-left ${styles.card}`}>
-              <h2>Recherchez</h2>
-              <p className="text-xs font-normal">
-                Entrez votre destination, vos dates et laissez Kasa faire le
-                reste
-              </p>
-            </div>
+        <div>
+          <div className={`p-6 rounded-xl text-left ${styles.card}`}>
+            <h2>Recherchez</h2>
+            <p>
+              Entrez votre destination, vos dates et laissez Kasa faire le reste
+            </p>
+          </div>
 
-            <div className={`p-6 rounded-xl text-left ${styles.card}`}>
-              <h2>Réservez</h2>
-              <p className="text-xs font-normal">
-                Profitez d’une plateforme sécurisée et de profils d’hôtes
-                vérifiés.
-              </p>
-            </div>
+          <div className={`p-6 rounded-xl text-left ${styles.card}`}>
+            <h2>Réservez</h2>
+            <p>
+              Profitez d’une plateforme sécurisée et de profils d’hôtes
+              vérifiés.
+            </p>
+          </div>
 
-            <div className={`p-6 rounded-xl text-left ${styles.card}`}>
-              <h2>Vivez l’expérience</h2>
-              <p className="text-xs font-normal">
-                Installez-vous, profitez de votre séjour, et sentez-vous chez
-                vous, partout.
-              </p>
-            </div>
+          <div className={`p-6 rounded-xl text-left ${styles.card}`}>
+            <h2>Vivez l’expérience</h2>
+            <p>
+              Installez-vous, profitez de votre séjour, et sentez-vous chez
+              vous, partout.
+            </p>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

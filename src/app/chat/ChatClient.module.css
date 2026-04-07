@@ -1,0 +1,214 @@
+.container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    background: var(--color-base-100);
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 320px;
+    grid-row: -1 / 1;
+    grid-column: 1;
+    background: #ffffff;
+    border-right: 1px solid #e5e5e5;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarHeader {
+    padding: 20px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.threadItem {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.threadItem:hover {
+    background: #f7f7f7;
+}
+
+.threadActive {
+    background: var(--color-base-100);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #ddd;
+    border-radius: 10px;
+}
+
+.threadContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.threadTop {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.threadName {
+    font-weight: 500;
+}
+
+.threadTime {
+    font-size: 12px;
+    color: #888;
+}
+
+.threadMessage {
+    font-size: 13px;
+    color: #777;
+    margin-top: 2px;
+}
+
+.unreadDot {
+    width: 6px;
+    height: 6px;
+    background: #8b2c1b;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+
+.chatContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f3f3f3;
+}
+
+.messages {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+
+
+.messageHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.messageHeaderRight {
+    justify-content: flex-end;
+}
+
+.messageAvatar {
+    width: 22px;
+    height: 22px;
+    background: #6b6b6b;
+    border-radius: 6px;
+}
+
+.messageRow {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.messageLeft {
+    justify-content: flex-start;
+}
+
+.messageRight {
+    justify-content: flex-end;
+}
+
+.messageBubble {
+    max-width: 420px;
+    padding: 14px 18px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.messageIncoming {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 18px 18px 18px 18px;
+}
+
+.messageOutgoing {
+    background: #8b2c1b;
+    color: white;
+    border-radius: 18px 1px 18px 18px;
+}
+
+.messageMeta {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 6px;
+}
+
+
+.dateSeparator {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    margin: 20px 0;
+    position: relative;
+}
+
+.dateSeparator::before,
+.dateSeparator::after {
+    content: "";
+    height: 1px;
+    background: #ddd;
+    position: absolute;
+    top: 50%;
+    width: 40%;
+}
+
+.dateSeparator::before {
+    left: 0;
+}
+
+.dateSeparator::after {
+    right: 0;
+}
+
+
+.inputContainer {
+    padding: 16px 20px;
+    border-top: 1px solid #e5e5e5;
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.textarea {
+    flex: 1;
+    height: 48px;
+    resize: none;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.sendButton {
+    background: #8b2c1b;
+    color: white;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+}

@@ -93,4 +93,21 @@ body {
       color: unset;
     }
   }
+
+  .page-content {
+    padding-inline: 16px;
+  }
+
+  @media screen and (min-width: 40rem) {
+    .drawer-content {
+      padding-top: 40px;
+    }
+
+    .page-content {
+      padding-inline: 140px;
+    }
+  }
+
+
+
 }

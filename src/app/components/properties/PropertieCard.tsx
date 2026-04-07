@@ -55,9 +55,15 @@ export default function PropertieCard({ property }: PropertieCardProps) {
         width={1900}
         height={800}
       />
-      <h2>{property.title}</h2>
-      <p>{property.location}</p>
-      <p>{property.price_per_night} € / nuit</p>
+      <section>
+        <div>
+          <h2>{property.title}</h2>
+          <p>{property.location}</p>
+        </div>
+        <p>
+          <b>{property.price_per_night} €</b> par nuit
+        </p>
+      </section>
     </Link>
   );
 }

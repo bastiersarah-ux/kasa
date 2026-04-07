@@ -10,7 +10,7 @@ export type PropertiesListProps = {
 /** Liste des propriétés */
 export default function PropertiesList({ properties }: PropertiesListProps) {
   return (
-    <div className="grid px-5 gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 auto-rows-fr mt-6">
+    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 auto-rows-fr">
       {(properties ?? []).map((property) => (
         <PropertieCard key={property.id} property={property} />
       ))}

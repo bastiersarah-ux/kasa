@@ -2,10 +2,10 @@
 
 import Gallery from "@/app/components/propertydetail/Gallery";
 import HostCard from "@/app/components/propertydetail/HostCard";
-import PropertyInfo from "@/app/components/propertydetail/PropertyInfo";
 import { PropertyDetails } from "@/types/api-types";
 import BackButton from "../../components/propertydetail/BackButton";
 import { useRouter } from "next/navigation";
+import PropertyInfo from "@/app/components/propertydetail/PropertyInfo";
 
 type PropertyDetailProps = {
   property?: PropertyDetails;
