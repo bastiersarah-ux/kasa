@@ -1,9 +1,9 @@
 "use client";
 import { useAuth } from "@/app/context/AuthContext";
+import { useFavorites } from "@/app/context/FavoriteContext";
 import styles from "./PropertieCard.module.css";
-import { PropertyDetails, PropertySummary } from "@/types/api-types";
+import { PropertySummary } from "@/types/api-types";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -14,30 +14,49 @@ type PropertieCardProps = {
 
 /** Carte affichant une propriété */
 export default function PropertieCard({ property }: PropertieCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
-  const router = useRouter();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const { favorites, addFavorite, removeFavorite } = useFavorites();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = () => {
-    // if (!isAuthenticated) {
-    //   logout("/auth/login");
-    //   return;
-    // }
+  // Vérifie si la propriété est dans les favoris
+  const isFavorite = favorites.some((fav) => fav.id === property.id);
 
-    setIsFavorite(!isFavorite);
+  const handleFavoriteClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isAuthenticated) {
+      // Pourrait rediriger vers login ici
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      if (isFavorite) {
+        await removeFavorite(property.id);
+      } else {
+        await addFavorite(property as any);
+      }
+    } catch (error) {
+      console.error("Erreur modification favoris:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <Link href={`/properties/${property.id}`} className={`card ${styles.card}`}>
       <button
-        onClick={handleClick}
+        onClick={handleFavoriteClick}
+        disabled={isLoading}
         className={`btn btn-ghost btn-square ${styles["btn-favorite"]} ${
           isFavorite ? styles.active : ""
         }`}
+        aria-label={isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
+          fill={isFavorite ? "currentColor" : "none"}
           viewBox="0 0 24 24"
           strokeWidth="2.5"
           className="size-[1.2em]"
