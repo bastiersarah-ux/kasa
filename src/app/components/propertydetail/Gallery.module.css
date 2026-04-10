@@ -4,7 +4,12 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 8px;
-    height: 420px;
+    grid-template-rows: 420px;
+
+    img {
+        border-radius: 12px;
+        cursor: pointer;
+    }
 }
 
 .mainImage {
@@ -27,18 +32,10 @@
     object-fit: cover;
 }
 
-.grid img:nth-child(2) {
-    border-top-right-radius: 12px;
-}
-
-.grid img:nth-child(4) {
-    border-bottom-right-radius: 12px;
-}
-
 /* CAROUSEL */
 
 .carousel {
-    display: none;
+    display: block;
     position: relative;
     overflow: hidden;
     height: 320px;
@@ -69,6 +66,8 @@
     border-radius: 50%;
     padding: 8px 12px;
     color: white;
+    width: 40px;
+    height: 40px;
 }
 
 .left {
@@ -84,11 +83,17 @@
 @media (max-width: 768px) {
 
     .mosaic {
-        display: none;
-    }
+        grid-template-columns: 1fr;
+        grid-template-rows: 420px 110px;
 
-    .carousel {
-        display: block;
+        img {
+            border-radius: 6px;
+        }
+
+        .grid {
+            grid-template-rows: 1fr;
+            grid-template-columns: repeat(4, 1fr);
+        }
     }
 
 }

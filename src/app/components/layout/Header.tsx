@@ -7,6 +7,7 @@ import styles from "./Header.module.css";
 import LineIcon from "@/public/line.svg";
 import FavoriteIcon from "@/public/favorite.svg";
 import KasaIcon from "@/public/kasa-full.svg";
+import KasaIconMobile from "@/public/kasa.svg";
 import Link from "next/link";
 
 /** Header de l'application avec navigation */
@@ -22,7 +23,8 @@ const Header = () => {
         </div>
 
         <div className={styles.logo}>
-          <Image src={KasaIcon} alt="Icône kasa" />
+          <Image src={KasaIcon} alt="Icône kasa" className="max-md:hidden" />
+          <Image src={KasaIconMobile} alt="Icône kasa" className="md:hidden" />
         </div>
 
         <div className={styles.end}>

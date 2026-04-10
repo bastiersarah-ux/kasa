@@ -15,7 +15,7 @@ type Props = {
 export default function HomeClient({ properties }: Props) {
   return (
     <div className={`page-content ${styles.content}`}>
-      <div>
+      <div className="flex flex-col w-full justify-center">
         <h1>Chez vous, partout et ailleurs</h1>
         <h3>
           Avec Kasa, vivez des séjours uniques dans des hébergements chaleureux,

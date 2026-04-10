@@ -1,0 +1,33 @@
+.grid-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 24px 10px;
+
+    .gallery {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .hostcard {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .property {
+        grid-column: 1;
+        grid-row: 2;
+    }
+}
+
+@media screen and (max-width: 64rem) {
+    .grid-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, auto);
+
+        .hostcard {
+            grid-column: 1;
+            grid-row: 3;
+        }
+    }
+}

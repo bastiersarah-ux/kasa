@@ -1,6 +1,9 @@
 import ChatClient from "./ChatClient";
+import { requireAuth } from "@/helpers/require-auth";
 
 export default async function MessagesPage() {
+  // Vérification côté serveur
+  await requireAuth();
   const threads = [
     {
       id: 1,

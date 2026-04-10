@@ -3,22 +3,23 @@ import {
   DeleteImagesResponse,
   ApiError,
 } from "../types/api-types";
-import { API_BASE, buildHeaders, request } from "../lib/http";
+import { fetchAPI } from "./fetch-api";
+
+const API_URL = "/api/proxy";
 
 /**
- * Envoie une image à l’API d’upload.
+ * Envoie une image à l'API d'upload (FormData).
  * @param formData FormData contenant le fichier (champ `file`).
- * @param token JWT owner/admin.
  */
 export async function uploadImage(
   formData: FormData,
-  token?: string,
 ): Promise<UploadImageResponse> {
-  const res = await fetch(`${API_BASE}/uploads/image`, {
+  const res = await fetch(`${API_URL}/uploads/image`, {
     method: "POST",
-    headers: buildHeaders(token),
     body: formData,
+    credentials: "include",
   });
+
   const data = (await res.json()) as UploadImageResponse | ApiError;
   if (!res.ok) {
     throw new Error((data as ApiError).error || res.statusText);
@@ -28,21 +29,16 @@ export async function uploadImage(
 
 /**
  * Supprime une ou plusieurs images.
- * @param payload Noms ou URLs des fichiers à supprimer (un ou plusieurs champs).
- * @param token JWT owner/admin autorisé à supprimer.
+ * @param payload Noms ou URLs des fichiers à supprimer.
  */
-export async function deleteImages(
-  payload: {
-    filenames?: string[];
-    urls?: string[];
-    filename?: string;
-    url?: string;
-  },
-  token?: string,
-): Promise<DeleteImagesResponse> {
-  return request<DeleteImagesResponse>(`${API_BASE}/uploads/images`, {
+export async function deleteImages(payload: {
+  filenames?: string[];
+  urls?: string[];
+  filename?: string;
+  url?: string;
+}): Promise<DeleteImagesResponse> {
+  return fetchAPI<DeleteImagesResponse>(`/uploads/images`, {
     method: "DELETE",
     body: payload,
-    headers: buildHeaders(token),
   });
 }

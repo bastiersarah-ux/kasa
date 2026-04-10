@@ -9,11 +9,9 @@ export const CategoryList = ({ tags }: CategoryListProps) => {
 
   return (
     <div className="section">
-      <h3>Catégories</h3>
-
-      <div className="tag-list">
+      <div className="property-info_badge-container">
         {tags.map((tag, index) => (
-          <span key={index} className="tag">
+          <span key={index} className="tag badge badge-soft">
             {tag}
           </span>
         ))}

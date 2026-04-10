@@ -1,16 +1,41 @@
 .section1 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
     .h1 {
         font-weight: bold;
     }
 }
 
+.about {
+    section {
+        width: 100%;
+    }
+
+    span {
+
+        color: #99331A;
+        font-weight: 700;
+        font-size: 18px;
+    }
+}
+
+
 
 .section2 {
+
+    gap: 16px;
 
     .span {
         font-size: 18px;
         color: var(--color-primary);
+    }
+
+    .text {
+        .text {
+            white-space: pre-line;
+        }
     }
 
 }

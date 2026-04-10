@@ -8,8 +8,12 @@ import {
   useState,
 } from "react";
 import { useAuth } from "./AuthContext";
-import { fetchAPI } from "src/services/fetch-api";
-import { FavoriteListItem, FavoriteActionResponse } from "src/types/api-types";
+import { FavoriteListItem } from "src/types/api-types";
+import {
+  addFavorite as addFavoriteService,
+  removeFavorite as removeFavoriteService,
+  listFavoritesForUser,
+} from "src/services/favorites";
 
 type FavoriteContextType = {
   favorites: FavoriteListItem[];
@@ -48,9 +52,7 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
     if (!user) return;
     try {
       setIsLoading(true);
-      const res = await fetchAPI<FavoriteListItem[]>(
-        `/api/users/${user.id}/favorites`,
-      );
+      const res = await listFavoritesForUser(user.id);
       setFavorites(res || []);
       saveLocalFavorites(res || []);
     } catch (error) {
@@ -75,12 +77,7 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
 
     if (isAuthenticated) {
       try {
-        const res: FavoriteActionResponse = await fetch(
-          `/api/properties/${fav.id}/favorite`,
-          {
-            method: "POST",
-          },
-        ).then((r) => r.json());
+        const res = await addFavoriteService(fav.id);
         if (!res.ok) throw new Error("API add favorite failed");
         const updated = [...favorites, fav];
         setFavorites(updated);
@@ -94,12 +91,7 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
   const removeFavorite = async (propertyId: string) => {
     if (isAuthenticated) {
       try {
-        const res: FavoriteActionResponse = await fetch(
-          `/api/properties/${propertyId}/favorite`,
-          {
-            method: "DELETE",
-          },
-        ).then((r) => r.json());
+        const res = await removeFavoriteService(propertyId);
         if (!res.ok) throw new Error("API remove favorite failed");
         const updated = favorites.filter((f) => f.id !== propertyId);
         setFavorites(updated);

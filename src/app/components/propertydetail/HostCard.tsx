@@ -20,18 +20,18 @@ export default function HostCard({ host, rating, ratingCount }: HostCardProps) {
     <div className="card bg-white shadow-sm p-4">
       <h2 className="font-semibold text-lg mb-4">Votre hôte</h2>
 
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-4.5 mb-6">
         <img
           src={host.picture || "/default-avatar.png"}
           alt={host.name}
           className="w-16 h-16 rounded-lg object-cover"
         />
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-1 items-center gap-4.5">
           <p className="font-medium">{host.name}</p>
 
           {rating !== undefined && (
-            <div className="flex items-center gap-1 bg-base-100 px-2 py-1 rounded-md text-sm">
+            <div className="flex items-center gap-2 p-2 text-black rounded-md text-md bg-grey">
               <Image
                 src={RatingIcon}
                 alt="Icône de note"
@@ -47,14 +47,11 @@ export default function HostCard({ host, rating, ratingCount }: HostCardProps) {
       </div>
 
       <div className="flex flex-col gap-3">
-        <Link
-          href="/contact"
-          className="btn bg-[#99331A] text-white! border-none"
-        >
+        <Link href="/chat" className="btn btn-red">
           Contacter l’hôte
         </Link>
 
-        <Link href="/chat" className="btn bg-[#99331A] text-white! border-none">
+        <Link href="/chat" className="btn btn-red">
           Envoyer un message
         </Link>
       </div>

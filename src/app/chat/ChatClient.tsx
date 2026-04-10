@@ -33,7 +33,7 @@ export default function ChatClient({ threads, messages }: ChatProps) {
       {/* SIDEBAR */}
       <div className={styles.sidebar}>
         <div className={styles.sidebarHeader}>
-          <button className="btn btn-ghost btn-sm mb-4">← Retour</button>
+          <button className="btn btn-grey btn-sm mb-4">← Retour</button>
           <h1 className={styles.title}>Messages</h1>
         </div>
 

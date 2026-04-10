@@ -4,7 +4,7 @@ type BackButtonProps = {
 
 export default function BackButton({ onClick }: BackButtonProps) {
   return (
-    <button className="back-btn" onClick={onClick}>
+    <button className="btn btn-grey" onClick={onClick}>
       ← Retour aux annonces
     </button>
   );

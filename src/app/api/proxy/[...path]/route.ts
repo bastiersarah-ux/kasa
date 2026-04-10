@@ -18,7 +18,8 @@ const ONE_WEEK_SECONDS = 60 * 60 * 24 * 7;
 async function forwardRequest(req: NextRequest) {
   // On retire le préfixe /api/proxy pour avoir le vrai chemin
   const path = req.nextUrl.pathname.replace(/^\/api\/proxy/, "");
-  const targetUrl = `${API_URL}${path}${req.nextUrl.search}`;
+  // Le backend a ses routes sous /api, donc on ajoute /api au path
+  const targetUrl = `${API_URL}/api${path}${req.nextUrl.search}`;
 
   // GET et HEAD n'ont pas de body
   const body =
@@ -74,16 +75,21 @@ async function forwardRequest(req: NextRequest) {
 
   // Si le backend renvoie un token, on le stocke dans un cookie httpOnly
   // C'est plus sécurisé que de le stocker en localStorage
-  if (backendResponse.ok && data?.data?.token) {
-    response.cookies.set({
-      name: ACCESS_TOKEN_COOKIE,
-      value: data.data.token,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: ONE_WEEK_SECONDS,
-      path: "/",
-    });
+  if (backendResponse.ok) {
+    // Chercher le token - peut être à data.token ou data.data.token selon l'endpoint
+    const token = data?.token || data?.data?.token || data?.access_token;
+
+    if (token) {
+      response.cookies.set({
+        name: ACCESS_TOKEN_COOKIE,
+        value: token,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: ONE_WEEK_SECONDS,
+        path: "/",
+      });
+    }
   } else if (backendResponse.status === 401) {
     // Si 401, on supprime le cookie car le token n'est plus valide
     response.cookies.set({

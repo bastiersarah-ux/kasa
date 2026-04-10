@@ -1,20 +1,33 @@
 import { env } from "../config/env";
 import { ApiError } from "../types/api-types";
-import { getStoredToken } from "./auth-storage";
+import { cookies } from "next/headers";
+import { ACCESS_TOKEN_COOKIE } from "@/helpers/auth-cookie";
 
 export const API_BASE = `${env.apiUrl}/api`;
 export const AUTH_BASE = `${env.apiUrl}/auth`;
 
-export function buildHeaders(
+export async function buildHeaders(
   token?: string,
   extra: HeadersInit = {},
-): HeadersInit {
+): Promise<HeadersInit> {
   const headers: Record<string, string> = {
     Accept: "application/json",
     ...extra,
   } as Record<string, string>;
 
-  const bearer = token ?? getStoredToken();
+  // Utiliser le token fourni, ou le lire depuis les cookies côté serveur
+  let bearer = token;
+  if (!bearer && typeof window === "undefined") {
+    // Côté serveur, lire le cookie httpOnly
+    try {
+      const cookieStore = await cookies();
+      bearer = cookieStore.get(ACCESS_TOKEN_COOKIE)?.value;
+      console.log(bearer);
+    } catch (e) {
+      // Les cookies ne sont pas disponibles
+    }
+  }
+
   if (bearer) headers.Authorization = `Bearer ${bearer}`;
 
   return headers;
@@ -32,9 +45,11 @@ export async function request<T>(
   options: JsonRequestInit = {},
 ): Promise<T> {
   const { body, headers, ...rest } = options;
+  const resolvedHeaders = await buildHeaders(undefined, headers || {});
+
   const init: RequestInit = {
     ...rest,
-    headers: buildHeaders(undefined, headers || {}),
+    headers: resolvedHeaders,
     body: body !== undefined ? JSON.stringify(body) : undefined,
   };
   if (init.body) {

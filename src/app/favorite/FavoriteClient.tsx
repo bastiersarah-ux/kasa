@@ -26,7 +26,11 @@ export default function FavoriteClient({
   }
 
   if ((favorites ?? initialFavorites).length === 0) {
-    return <p>Vous n’avez aucun favori pour le moment.</p>;
+    return (
+      <p className="flex-1 flex justify-center items-center">
+        Vous n’avez aucun favori pour le moment.
+      </p>
+    );
   }
 
   return (

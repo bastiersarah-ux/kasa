@@ -6,6 +6,7 @@ import { PropertyDetails } from "@/types/api-types";
 import BackButton from "../../components/propertydetail/BackButton";
 import { useRouter } from "next/navigation";
 import PropertyInfo from "@/app/components/propertydetail/PropertyInfo";
+import styles from "./PropertyDetailClient.module.css";
 
 type PropertyDetailProps = {
   property?: PropertyDetails;
@@ -22,24 +23,24 @@ export default function PropertyDetailClient({
   };
 
   return (
-    <div className="property-page container mx-auto p-4">
+    <div className="property-page page-content mx-auto p-4">
       <BackButton onClick={handleClick} />
 
-      <div className="top-section flex flex-col lg:flex-row gap-6 mt-4">
-        <div className="flex-2">
+      <div className={styles["grid-content"]}>
+        <section className={styles.gallery}>
           <Gallery pictures={property.pictures ?? []} />
-        </div>
-
-        <div className="flex-1">
+        </section>
+        <section className={styles.hostcard}>
           <HostCard
             host={property.host}
             rating={property.rating_avg}
             ratingCount={property.ratings_count}
           />
-        </div>
+        </section>
+        <section className={styles.property}>
+          <PropertyInfo property={property} />
+        </section>
       </div>
-
-      <PropertyInfo property={property} />
     </div>
   );
 }

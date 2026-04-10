@@ -1,4 +1,5 @@
 export const API_URL = "/api/proxy";
+
 export class ValidationError extends Error {
   errors: Array<{ field: string; message: string }>;
 
@@ -12,13 +13,18 @@ export class ValidationError extends Error {
   }
 }
 
+type FetchAPIOptions = Omit<RequestInit, "body"> & {
+  body?: any;
+};
+
 /** Wrapper fetch qui gère les headers et le parsing json */
 export async function fetchAPI<T = any>(
   path: string,
-  options: RequestInit = {},
-): Promise<T | undefined> {
+  options: FetchAPIOptions = {},
+): Promise<T> {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const headers = new Headers(options.headers);
+  // Le token est dans le cookie httpOnly, le proxy le gère automatiquement
   const isServer = typeof window === "undefined";
   const origin =
     process.env.NEXT_PUBLIC_APP_URL ||
@@ -43,11 +49,18 @@ export async function fetchAPI<T = any>(
 
   let res: Response;
   try {
+    // Stringify body si c'est un objet
+    const body =
+      options.body && typeof options.body === "object"
+        ? JSON.stringify(options.body)
+        : options.body;
+
     res = await fetch(url, {
       ...options,
+      body,
       cache: options.cache ?? "no-store",
       headers: {
-        ...(options.body ? { "Content-Type": "application/json" } : {}),
+        ...(body ? { "Content-Type": "application/json" } : {}),
         ...Object.fromEntries(headers.entries()),
       },
       credentials: options.credentials ?? "include",
@@ -70,7 +83,8 @@ export async function fetchAPI<T = any>(
         }`,
       );
     }
-    return undefined;
+    // Pour les DELETE/204, on retourne undefined cast en T (assignable si T est void)
+    return undefined as T;
   }
 
   const body = (await res.json()) as T;

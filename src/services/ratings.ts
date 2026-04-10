@@ -1,30 +1,25 @@
 import { Rating, AddRatingInput, RatingsSummary } from "../types/api-types";
-import { API_BASE, buildHeaders, request } from "../lib/http";
+import { fetchAPI } from "./fetch-api";
 
 /**
- * Liste les avis d’une propriété.
- * @param propertyId Id de la propriété.
+ * Liste les notes d'une propriété.
+ * @param propertyId Identifiant de propriété.
  */
 export async function listRatings(propertyId: string): Promise<Rating[]> {
-  return request<Rating[]>(`${API_BASE}/properties/${propertyId}/ratings`);
+  return fetchAPI<Rating[]>(`/properties/${propertyId}/ratings`);
 }
 
 /**
- * Ajoute un avis pour une propriété.
- * @param propertyId Id de la propriété.
- * @param input Score/commentaire à poster.
+ * Crée une note pour une propriété.
+ * @param propertyId Identifiant de propriété.
+ * @param input Données de création.
  */
-export async function addRating(
+export async function createRating(
   propertyId: string,
   input: AddRatingInput,
-  token?: string,
 ): Promise<RatingsSummary> {
-  return request<RatingsSummary>(
-    `${API_BASE}/properties/${propertyId}/ratings`,
-    {
-      method: "POST",
-      body: input,
-      headers: buildHeaders(token),
-    },
-  );
+  return fetchAPI<RatingsSummary>(`/properties/${propertyId}/ratings`, {
+    method: "POST",
+    body: input,
+  });
 }

@@ -60,10 +60,14 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
       ![null, undefined, ""].includes(password?.trim())
     ) {
       try {
-        const endpoint = isLogin ? "/login" : "/register";
+        const endpoint = isLogin ? "/auth/login" : "/auth/register";
         const body = isLogin
           ? ({ email, password } as LoginInput)
-          : ({ email, password, name: "" } as RegisterInput);
+          : ({
+              email,
+              password,
+              name: `${firstName} ${lastName}`,
+            } as RegisterInput);
 
         const res = await fetchAPI<AuthResponse>(endpoint, {
           method: "POST",
@@ -88,14 +92,15 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
   }
 
   return (
-    <main className={`${styles["page-content"]} max-md:flex-col`}>
+    <main className={styles["page-content"]}>
       <section>
-        <form onSubmit={handleSubmit} className="card bg-white gap-4 mx-auto">
+        <form onSubmit={handleSubmit} className={styles.card}>
           <h1>
             {isLogin
               ? "Heureux de vous revoir"
               : "Rejoignez la communauté Kasa"}
           </h1>
+
           <h3>
             {isLogin
               ? "Connectez-vous pour retrouver vos réservations, vos annonces et tout ce qui rend vos séjours uniques."
@@ -104,13 +109,14 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
 
           {!isLogin && (
             <>
-              <fieldset className="fieldset">
-                <legend className="label">Prénom</legend>
+              <fieldset className={styles.fieldset}>
+                <legend className={styles.label}>Prénom</legend>
                 <input
                   id="firstName"
                   type="text"
-                  aria-label="Prénom"
-                  className={`input ${fieldErrors.firstName ? "input-error" : ""}`}
+                  className={`${styles.input} ${
+                    fieldErrors.firstName ? styles["input-error"] : ""
+                  }`}
                   value={firstName}
                   onChange={(e) => {
                     setFirstName(e.target.value);
@@ -119,19 +125,18 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
                   }}
                 />
                 {fieldErrors.firstName && (
-                  <span className="text-error-content text-sm">
-                    {fieldErrors.firstName}
-                  </span>
+                  <span className={styles.error}>{fieldErrors.firstName}</span>
                 )}
               </fieldset>
 
-              <fieldset className="fieldset">
-                <legend className="label">Nom</legend>
+              <fieldset className={styles.fieldset}>
+                <legend className={styles.label}>Nom</legend>
                 <input
                   id="lastName"
                   type="text"
-                  aria-label="Nom"
-                  className={`input ${fieldErrors.lastName ? "input-error" : ""}`}
+                  className={`${styles.input} ${
+                    fieldErrors.lastName ? styles["input-error"] : ""
+                  }`}
                   value={lastName}
                   onChange={(e) => {
                     setLastName(e.target.value);
@@ -140,22 +145,20 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
                   }}
                 />
                 {fieldErrors.lastName && (
-                  <span className="text-error-content text-sm">
-                    {fieldErrors.lastName}
-                  </span>
+                  <span className={styles.error}>{fieldErrors.lastName}</span>
                 )}
               </fieldset>
             </>
           )}
 
-          <fieldset className="fieldset">
-            <legend className="label">Adresse email</legend>
+          <fieldset className={styles.fieldset}>
+            <legend className={styles.label}>Adresse email</legend>
             <input
               id="email"
               type="text"
-              aria-label="Email"
-              autoComplete="username"
-              className={`input ${fieldErrors.email ? "input-error" : ""}`}
+              className={`${styles.input} ${
+                fieldErrors.email ? styles["input-error"] : ""
+              }`}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -164,20 +167,18 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
               }}
             />
             {fieldErrors.email && (
-              <span className="text-error-content text-sm">
-                {fieldErrors.email}
-              </span>
+              <span className={styles.error}>{fieldErrors.email}</span>
             )}
           </fieldset>
 
-          <fieldset className="fieldset">
-            <legend className="label">Mot de passe</legend>
+          <fieldset className={styles.fieldset}>
+            <legend className={styles.label}>Mot de passe</legend>
             <input
               id="password"
-              aria-label="Mot de passe"
-              className={`input ${fieldErrors.password ? "input-error" : ""}`}
               type="password"
-              autoComplete="current-password"
+              className={`${styles.input} ${
+                fieldErrors.password ? styles["input-error"] : ""
+              }`}
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -186,52 +187,44 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
               }}
             />
             {fieldErrors.password && (
-              <span className="text-error-content text-sm">
-                {fieldErrors.password}
-              </span>
+              <span className={styles.error}>{fieldErrors.password}</span>
             )}
           </fieldset>
 
           {!isLogin && (
-            <label className="flex items-start gap-2 cursor-pointer">
+            <label className={styles.checkboxWrapper}>
               <input
                 type="checkbox"
-                className="checkbox mt-1"
                 checked={acceptedTerms}
                 onChange={(e) => setAcceptedTerms(e.target.checked)}
               />
-              <div>
+              <span>
                 {fieldErrors.terms && (
-                  <span className="text-error-content text-sm">
-                    {fieldErrors.terms}
-                  </span>
+                  <span className={styles.error}>{fieldErrors.terms}</span>
                 )}
-                J’accepte les{" "}
-                <a href="/cgu" className="underline">
-                  conditions générales d’utilisation
-                </a>
-              </div>
+                J’accepte les <a href="#">conditions générales d’utilisation</a>
+              </span>
             </label>
           )}
 
-          <button className="btn btn-red" type="submit">
+          <button
+            className={`${styles.btn} ${styles["btn-red"]}`}
+            type="submit"
+          >
             {isLogin ? "Se connecter" : "S'inscrire"}
           </button>
+
           {isLogin && <Link href="#">Mot de passe oublié ?</Link>}
-          <p className="flex gap-2">
-            {isLogin ? (
-              <>
-                <Link href="/auth/register">
-                  {" "}
-                  Pas encore de compte ? <strong>Inscrivez-vous</strong>
-                </Link>
-              </>
-            ) : (
-              <>
-                Déjà membre ?<Link href="/auth/login">Se connecter</Link>
-              </>
-            )}
-          </p>
+
+          {isLogin ? (
+            <Link href="/auth/register">
+              Pas encore de compte ? <strong>Inscrivez-vous</strong>
+            </Link>
+          ) : (
+            <>
+              Déjà membre ? <Link href="/auth/login">Se connecter</Link>
+            </>
+          )}
         </form>
       </section>
     </main>

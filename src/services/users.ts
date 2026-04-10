@@ -1,64 +1,45 @@
-import {
-  UserListItem,
-  CreateUserInput,
-  UpdateUserInput,
-} from "../types/api-types";
-import { API_BASE, buildHeaders, request } from "../lib/http";
+import { AuthUser, UpdateUserInput, UserListItem } from "../types/api-types";
+import { fetchAPI } from "./fetch-api";
 
 /**
- * Liste les utilisateurs (admin requis).
- * @param token JWT admin.
+ * Récupère le profil de l'utilisateur actuel.
  */
-export async function listUsers(token?: string): Promise<UserListItem[]> {
-  return request<UserListItem[]>(`${API_BASE}/users`, {
-    headers: buildHeaders(token),
-  });
+export async function getCurrentUser(): Promise<AuthUser> {
+  return fetchAPI<AuthUser>(`/auth/me`);
 }
 
 /**
- * Récupère un utilisateur (self ou admin).
- * @param id Id utilisateur ciblé.
- * @param token JWT autorisé.
- */
-export async function getUser(
-  id: string | number,
-  token?: string,
-): Promise<UserListItem> {
-  return request<UserListItem>(`${API_BASE}/users/${id}`, {
-    headers: buildHeaders(token),
-  });
-}
-
-/**
- * Crée un utilisateur (admin).
- * @param input Données du nouvel utilisateur.
- * @param token JWT admin.
- */
-export async function createUser(
-  input: CreateUserInput,
-  token?: string,
-): Promise<UserListItem> {
-  return request<UserListItem>(`${API_BASE}/users`, {
-    method: "POST",
-    body: input,
-    headers: buildHeaders(token),
-  });
-}
-
-/**
- * Met à jour un utilisateur (self ou admin).
- * @param id Id utilisateur ciblé.
+ * Met à jour le profil de l'utilisateur actuel.
  * @param input Champs à modifier.
- * @param token JWT autorisé.
  */
-export async function updateUser(
-  id: string | number,
+export async function updateCurrentUser(
   input: UpdateUserInput,
-  token?: string,
-): Promise<UserListItem> {
-  return request<UserListItem>(`${API_BASE}/users/${id}`, {
+): Promise<AuthUser> {
+  return fetchAPI<AuthUser>(`/auth/me`, {
     method: "PATCH",
     body: input,
-    headers: buildHeaders(token),
   });
+}
+
+/**
+ * Change le mot de passe de l'utilisateur.
+ * @param currentPassword Mot de passe actuel.
+ * @param newPassword Nouveau mot de passe.
+ */
+export async function changePassword(
+  currentPassword: string,
+  newPassword: string,
+): Promise<void> {
+  await fetchAPI<void>(`/auth/change-password`, {
+    method: "POST",
+    body: { currentPassword, newPassword },
+  });
+}
+
+/**
+ * Récupère le profil d'un utilisateur par son ID.
+ * @param userId Identifiant d'utilisateur.
+ */
+export async function getUserById(userId: string): Promise<UserListItem> {
+  return fetchAPI<UserListItem>(`/users/${userId}`);
 }

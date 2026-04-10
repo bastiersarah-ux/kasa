@@ -1,13 +1,13 @@
 "use client";
 
-import { fetchAPI } from "src/services/fetch-api";
-import { AuthUser, LoginInput, RegisterInput } from "src/types/api-types";
-import { usePathname, useRouter } from "next/navigation";
+import { AuthUser } from "src/types/api-types";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   ReactNode,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -28,32 +28,45 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const pathname = usePathname();
+  const hasInitialized = useRef(false);
 
-  const fetchUser = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetchAPI<{ user: AuthUser }>("/profile");
-      if (res?.user) {
-        setUser(res.user);
-      } else {
-        setUser(null);
-      }
-    } catch (error) {
-      console.error("Erreur de récupération du profil:", error);
-      setUser(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+  // Récupère l'état d'auth au montage depuis le serveur
   useEffect(() => {
-    if (pathname?.startsWith("/auth/")) {
-      setIsLoading(false);
-      return;
-    }
-    fetchUser();
-  }, [pathname]);
+    if (hasInitialized.current) return;
+    hasInitialized.current = true;
+
+    const fetchAuthStatus = async () => {
+      try {
+        // Appeler le serveur pour vérifier si l'utilisateur est connecté
+        const res = await fetch("/api/auth/me", {
+          credentials: "include",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          // Le serveur retourne { user: { ... } }
+          if (data?.user) {
+            setUser(data.user);
+          } else {
+            setUser(null);
+          }
+        } else {
+          // 401 ou autre erreur = pas authentifié
+          setUser(null);
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la vérification d'authentification:",
+          error,
+        );
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAuthStatus();
+  }, []);
 
   const login = (userData: AuthUser) => {
     setUser(userData);
@@ -72,9 +85,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const isAuthenticated = !!user;
 
-  /** Rafraîchit les données utilisateur depuis l'API */
+  /** Rafraîchit les données utilisateur depuis le serveur */
   const refreshUser = async () => {
-    await fetchUser();
+    try {
+      const res = await fetch("/api/auth/me", {
+        credentials: "include",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.user) {
+          setUser(data.user);
+        } else {
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("Erreur lors du rafraîchissement du profil:", error);
+      setUser(null);
+    }
   };
 
   return (

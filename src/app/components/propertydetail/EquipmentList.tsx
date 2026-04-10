@@ -9,11 +9,11 @@ export const EquipmentList = ({ equipments }: EquipmentListProps) => {
 
   return (
     <div className="section">
-      <h3>Équipements</h3>
-
-      <ul className="equipment-list">
+      <ul className="property-info_badge-container">
         {equipments.map((item, index) => (
-          <li key={index}>{item}</li>
+          <li key={index} className="tag badge badge-soft">
+            {item}
+          </li>
         ))}
       </ul>
     </div>

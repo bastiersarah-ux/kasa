@@ -16,7 +16,7 @@
         align-items: center;
         justify-content: space-between;
 
-        @media screen and (max-width: 40rem) {
+        @media screen and (max-width: 48rem) {
             width: 100%;
         }
 
@@ -89,9 +89,14 @@
     }
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 48rem) {
     .header {
         margin-bottom: 0;
+
+        .logo {
+            width: 46px !important;
+            height: 53px !important;
+        }
     }
 
     .header nav {
