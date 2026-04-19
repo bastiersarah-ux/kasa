@@ -22,6 +22,20 @@ export async function getProperty(id: string): Promise<PropertyDetails> {
 }
 
 /**
+ * Récupère le détail d'une propriété par son slug.
+ * Comme l'API ne supporte pas la recherche par slug,
+ * on récupère la liste puis on résout l'id correspondant.
+ */
+export async function getPropertyBySlug(
+  slug: string,
+): Promise<PropertyDetails | null> {
+  const all = await listProperties();
+  const match = all.find((p) => p.slug === slug);
+  if (!match) return null;
+  return getProperty(match.id);
+}
+
+/**
  * Crée une propriété (rôle owner/admin requis).
  * @param input Données de création.
  */

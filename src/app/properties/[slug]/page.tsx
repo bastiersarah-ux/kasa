@@ -1,15 +1,18 @@
-import { getProperty } from "@/services";
+import { getPropertyBySlug } from "@/services";
+import { notFound } from "next/navigation";
 import PropertyDetailClient from "./PropertyDetailClient";
 
 type PropertyDetailPageProps = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 };
 
 export default async function PropertyDetailPage({
   params,
 }: PropertyDetailPageProps) {
-  const { id: propertyId } = await params;
-  const property = await getProperty(propertyId);
+  const { slug } = await params;
+  const property = await getPropertyBySlug(slug);
+
+  if (!property) notFound();
 
   return (
     <>

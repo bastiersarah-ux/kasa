@@ -125,9 +125,15 @@ export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+const defaultContext: FavoriteContextType = {
+  favorites: [],
+  isLoading: false,
+  addFavorite: async () => {},
+  removeFavorite: async () => {},
+  refreshFavorites: async () => {},
+};
+
 export const useFavorites = (): FavoriteContextType => {
   const context = useContext(FavoriteContext);
-  if (!context)
-    throw new Error("useFavorites doit être utilisé dans un FavoriteProvider");
-  return context;
+  return context ?? defaultContext;
 };

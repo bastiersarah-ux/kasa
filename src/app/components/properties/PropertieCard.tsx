@@ -6,6 +6,7 @@ import { PropertySummary } from "@/types/api-types";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 /** Props de la carte propriété */
 type PropertieCardProps = {
@@ -17,6 +18,7 @@ export default function PropertieCard({ property }: PropertieCardProps) {
   const { isAuthenticated } = useAuth();
   const { favorites, addFavorite, removeFavorite } = useFavorites();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   // Vérifie si la propriété est dans les favoris
   const isFavorite = favorites.some((fav) => fav.id === property.id);
@@ -26,7 +28,7 @@ export default function PropertieCard({ property }: PropertieCardProps) {
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      // Pourrait rediriger vers login ici
+      router.push("/auth/login");
       return;
     }
 
@@ -45,7 +47,10 @@ export default function PropertieCard({ property }: PropertieCardProps) {
   };
 
   return (
-    <Link href={`/properties/${property.id}`} className={`card ${styles.card}`}>
+    <Link
+      href={`/properties/${property.slug}`}
+      className={`card ${styles.card}`}
+    >
       <button
         onClick={handleFavoriteClick}
         disabled={isLoading}
