@@ -1,3 +1,8 @@
+/**
+ * @module ChatClient
+ * @description Composant client de l'interface de messagerie.
+ * Affiche la liste des conversations et les messages avec une vue responsive.
+ */
 "use client";
 
 import { useState } from "react";
@@ -5,25 +10,47 @@ import { useRouter } from "next/navigation";
 import { useNavigation } from "@/app/context/NavigationContext";
 import styles from "./ChatClient.module.css";
 
+/** Fil de discussion (conversation) */
 type Thread = {
+  /** Identifiant unique */
   id: number;
+  /** Nom de l'interlocuteur */
   username: string;
+  /** URL de l'avatar */
   avatar: string;
+  /** Dernier message de la conversation */
   lastMessage: string;
+  /** Date du dernier message */
   date: string;
 };
 
+/** Message individuel dans une conversation */
 type Message = {
+  /** Identifiant unique */
   id: number;
+  /** Contenu textuel du message */
   content: string;
+  /** Date d'envoi */
   date: string;
+  /** `true` si le message est de l'utilisateur connecté */
   isOwner: boolean;
 };
 
+/** Props du composant ChatClient */
 type ChatProps = {
+  /** Liste des fils de discussion */
   threads: Thread[];
+  /** Liste des messages de la conversation sélectionnée */
   messages: Message[];
 };
+
+/**
+ * Interface de messagerie responsive.
+ * - **Desktop** : sidebar + messages côte à côte
+ * - **Mobile** : navigation entre la liste des conversations et les messages
+ * @param props - Fils de discussion et messages
+ * @returns L'interface de chat complète
+ */
 
 export default function ChatClient({ threads, messages }: ChatProps) {
   const router = useRouter();

@@ -1,15 +1,27 @@
+/**
+ * @module PropertieCard
+ * @description Carte affichant le résumé d'une propriété avec image, titre, prix et bouton favori.
+ */
 import { PropertySummary } from "@/types/api-types";
 import Image from "next/image";
 import Link from "next/link";
 import FavoriteButton from "./FavoriteButton";
 import styles from "./PropertieCard.module.css";
 
-/** Props de la carte propriété */
+/**
+ * Props de la carte propriété.
+ * @property property - Données résumées de la propriété à afficher
+ */
 type PropertieCardProps = {
   property: PropertySummary;
 };
 
-/** Carte affichant une propriété (server component) */
+/**
+ * Carte affichant une propriété dans la grille de résultats.
+ * Inclut l'image de couverture, le titre, la localisation, le prix et le bouton favori.
+ * @param props - Données de la propriété
+ * @returns Carte cliquable menant au détail de la propriété
+ */
 export default function PropertieCard({ property }: PropertieCardProps) {
   return (
     <Link

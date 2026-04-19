@@ -1,3 +1,7 @@
+/**
+ * @module uploads
+ * @description Service d'upload et de suppression d'images.
+ */
 import {
   UploadImageResponse,
   DeleteImagesResponse,
@@ -5,11 +9,15 @@ import {
 } from "../types/api-types";
 import { fetchAPI } from "./fetch-api";
 
+/** URL de base du proxy API Next.js */
 const API_URL = "/api/proxy";
 
 /**
- * Envoie une image à l'API d'upload (FormData).
- * @param formData FormData contenant le fichier (champ `file`).
+ * Envoie une image au serveur via le proxy.
+ * Utilise FormData pour le multipart/form-data.
+ * @param formData - FormData contenant le fichier dans le champ `file`
+ * @returns Informations sur l'image uploadée (URL, nom, taille, etc.)
+ * @throws {Error} Si l'upload échoue
  */
 export async function uploadImage(
   formData: FormData,
@@ -28,8 +36,10 @@ export async function uploadImage(
 }
 
 /**
- * Supprime une ou plusieurs images.
- * @param payload Noms ou URLs des fichiers à supprimer.
+ * Supprime une ou plusieurs images du serveur.
+ * Accepte des noms de fichiers ou des URLs.
+ * @param payload - Fichiers à supprimer (par nom ou URL)
+ * @returns Résultat détaillé de la suppression
  */
 export async function deleteImages(payload: {
   filenames?: string[];

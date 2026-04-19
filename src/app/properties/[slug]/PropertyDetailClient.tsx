@@ -1,3 +1,8 @@
+/**
+ * @module PropertyDetailClient
+ * @description Composant client de la page de détail d'une propriété.
+ * Affiche la galerie, la carte hôte et les informations détaillées.
+ */
 "use client";
 
 import Gallery from "@/app/components/propertydetail/Gallery";
@@ -8,9 +13,18 @@ import { useRouter } from "next/navigation";
 import PropertyInfo from "@/app/components/propertydetail/PropertyInfo";
 import styles from "./PropertyDetailClient.module.css";
 
+/** Props du composant de détail */
 type PropertyDetailProps = {
+  /** Détail de la propriété à afficher (optionnel pour gérer le cas introuvable) */
   property?: PropertyDetails;
 };
+
+/**
+ * Composant client affichant le détail complet d'une propriété.
+ * Organise la galerie, la carte hôte et les informations en grille responsive.
+ * @param props - Détail de la propriété
+ * @returns Page de détail ou message d'erreur
+ */
 
 export default function PropertyDetailClient({
   property,

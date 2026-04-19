@@ -1,8 +1,18 @@
+/**
+ * @module AboutPage
+ * @description Page "À propos" de Kasa.
+ * Présente la mission, les valeurs et l'histoire de l'entreprise.
+ */
 import styles from "./about.module.css";
 import AboutImg1 from "@/public/about-1.svg";
 import AboutImg2 from "@/public/about-2.svg";
 import Image from "next/image";
 
+/**
+ * Page À propos.
+ * Contenu statique présentant Kasa et sa mission.
+ * @returns La page à propos complète
+ */
 export default function AboutSection() {
   return (
     <div className={`page-content ${styles.about}`}>

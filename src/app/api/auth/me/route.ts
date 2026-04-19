@@ -1,5 +1,17 @@
+/**
+ * @module auth/me
+ * @description Route API pour récupérer le profil de l'utilisateur connecté.
+ * Décode le JWT pour obtenir l'ID puis appelle le backend.
+ */
 import { NextRequest, NextResponse } from "next/server";
 import { ACCESS_TOKEN_COOKIE } from "@/helpers/auth-cookie";
+
+/**
+ * Décode un token JWT pour extraire le payload.
+ * Ne vérifie pas la signature.
+ * @param token - Chaîne JWT complète
+ * @returns Le payload décodé ou `null` en cas d'erreur
+ */
 
 function decodeJWT(token: string) {
   try {
@@ -18,6 +30,12 @@ function decodeJWT(token: string) {
   }
 }
 
+/**
+ * Récupère le profil de l'utilisateur connecté.
+ * Décode le JWT depuis le cookie, puis appelle le backend `/api/users/:id`.
+ * @param request - Requête entrante contenant les cookies
+ * @returns Le profil utilisateur ou une erreur 401/500
+ */
 export async function GET(request: NextRequest) {
   try {
     const token = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;

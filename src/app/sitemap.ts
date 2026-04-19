@@ -1,11 +1,24 @@
+/**
+ * @module sitemap
+ * @description Génération automatique du sitemap.xml.
+ * Inclut les routes statiques et les propriétés dynamiques depuis l'API backend.
+ * Accessible à l'URL `/sitemap.xml`.
+ */
 import type { MetadataRoute } from "next";
 import { env } from "@/config/env";
 
+/** URL de base du site (utilisée pour construire les URLs absolues) */
 const BASE_URL =
   process.env.NEXT_PUBLIC_APP_URL ||
   process.env.APP_URL ||
   "http://localhost:4000";
 
+/**
+ * Génère le sitemap de l'application.
+ * Combine les routes statiques connues avec les propriétés
+ * récupérées dynamiquement depuis l'API backend.
+ * @returns Tableau d'entrées sitemap conformes au format Next.js
+ */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/`, changeFrequency: "daily", priority: 1 },

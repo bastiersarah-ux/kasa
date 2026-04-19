@@ -1,3 +1,8 @@
+/**
+ * @module AuthTemplate
+ * @description Template réutilisable pour les pages de connexion et d'inscription.
+ * Gère le formulaire, la validation et la soumission vers l'API.
+ */
 "use client";
 
 import Link from "next/link";
@@ -9,15 +14,24 @@ import { useNotification } from "@/app/context/NotificationContext";
 import { fetchAPI, ValidationError } from "@/services/fetch-api";
 import { LoginInput, RegisterInput, AuthResponse } from "@/types/api-types";
 
-/** Props du template d'auth */
+/**
+ * Props du template d'authentification.
+ * @property isLogin - `true` pour le formulaire de connexion, `false` pour l'inscription
+ */
 type AuthTemplateProps = {
   isLogin: boolean;
 };
 
-/** Erreurs par champ */
+/** Dictionnaire d'erreurs de validation par nom de champ */
 type FieldErrors = Record<string, string>;
 
-/** Template pour les pages login et register */
+/**
+ * Template pour les pages de connexion et d'inscription.
+ * Affiche un formulaire adapté selon le mode (login/register),
+ * gère la validation côté client et la soumission vers l'API.
+ * @param props - Props avec le mode de formulaire
+ * @returns Le formulaire d'authentification
+ */
 export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
   const router = useRouter();
   const { login, isAuthenticated } = useAuth();

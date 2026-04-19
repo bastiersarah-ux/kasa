@@ -1,3 +1,8 @@
+/**
+ * @module FavoriteButton
+ * @description Bouton interactif pour ajouter/retirer une propriété des favoris.
+ * Redirige vers la page de connexion si l'utilisateur n'est pas authentifié.
+ */
 "use client";
 import { useAuth } from "@/app/context/AuthContext";
 import { useFavorites } from "@/app/context/FavoriteContext";
@@ -6,11 +11,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./PropertieCard.module.css";
 
+/** Props du bouton favori */
 type Props = {
+  /** Propriété à ajouter/retirer des favoris */
   property: PropertySummary;
 };
 
-/** Bouton favori (client component — seule partie interactive de la carte) */
+/**
+ * Bouton favori affiché sur chaque carte de propriété.
+ * Bascule l'état favori et synchronise avec le contexte.
+ * @param props - Propriété concernée
+ * @returns Bouton avec icône cœur (plein si favori, vide sinon)
+ */
 export default function FavoriteButton({ property }: Props) {
   const { isAuthenticated } = useAuth();
   const { favorites, addFavorite, removeFavorite } = useFavorites();

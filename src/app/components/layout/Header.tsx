@@ -1,3 +1,8 @@
+/**
+ * @module Header
+ * @description En-tête principal de l'application avec navigation desktop et mobile.
+ * Affiche le logo, les liens de navigation et les icônes d'actions (chat, favoris).
+ */
 "use client";
 
 import { useAuth } from "@/app/context/AuthContext";
@@ -11,7 +16,11 @@ import KasaIconMobile from "@/public/kasa.svg";
 import MenuMobileIcon from "@/public/menu-mobile.svg";
 import Link from "next/link";
 
-/** Header de l'application avec navigation */
+/**
+ * Composant Header de l'application.
+ * Contient la navigation principale, le logo et les liens d'actions.
+ * @returns L'en-tête avec navigation responsive
+ */
 const Header = () => {
   const { isAuthenticated } = useAuth();
 

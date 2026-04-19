@@ -1,6 +1,8 @@
 /**
- * Décod un JWT côté serveur pour extraire le payload
- * @param token JWT string
+ * Décode un token JWT côté serveur pour extraire le payload.
+ * Ne vérifie pas la signature (utilisé uniquement pour lire les données).
+ * @param token - Chaîne JWT complète (header.payload.signature)
+ * @returns Le payload décodé ou `null` en cas d'erreur
  */
 export function decodeJWT(token: string) {
   try {

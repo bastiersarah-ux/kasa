@@ -1,3 +1,8 @@
+/**
+ * @module HostCard
+ * @description Carte affichant les informations de l'hôte d'un logement
+ * avec photo, nom, note et boutons de contact.
+ */
 "use client";
 
 import { HostSummary } from "@/types/api-types";
@@ -5,14 +10,25 @@ import Image from "next/image";
 import RatingIcon from "@/public/rating.svg";
 import Link from "next/link";
 
-/** Props de la carte Hôte */
+/**
+ * Props de la carte hôte.
+ * @property host - Informations de l'hôte
+ * @property rating - Moyenne des notes
+ * @property ratingCount - Nombre total de notes
+ */
 type HostCardProps = {
   host?: HostSummary;
   rating?: number;
   ratingCount?: number;
 };
 
-/** Carte affichant les informations de l'hôte */
+/**
+ * Carte affichant le profil de l'hôte d'un logement.
+ * Inclut la photo, le nom, la note moyenne et les boutons de contact/message.
+ * Ne rend rien si aucun hôte n'est fourni.
+ * @param props - Données de l'hôte et ses notes
+ * @returns Carte hôte ou `null`
+ */
 export default function HostCard({ host, rating, ratingCount }: HostCardProps) {
   if (!host) return null;
 

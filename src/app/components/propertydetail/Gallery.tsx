@@ -1,11 +1,26 @@
+/**
+ * @module Gallery
+ * @description Galerie d'images avec mosaïque desktop et carousel modal.
+ * Supporte la navigation clavier (flèches gauche/droite).
+ */
 "use client";
 
 import { useState } from "react";
 import styles from "./Gallery.module.css";
 
+/** Props de la galerie */
 type GalleryProps = {
+  /** URLs des images à afficher */
   pictures: string[];
 };
+
+/**
+ * Galerie d'images responsive.
+ * - **Desktop** : mosaïque avec 1 image principale et 4 vignettes
+ * - **Modal** : carousel plein écran avec navigation flèches
+ * @param props - Liste d'URLs d'images
+ * @returns Mosaïque cliquable + modal carousel
+ */
 
 export default function Gallery({ pictures }: GalleryProps) {
   const [index, setIndex] = useState(0);

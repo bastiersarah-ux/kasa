@@ -1,3 +1,9 @@
+/**
+ * @module FavoriteContext
+ * @description Contexte de gestion des favoris.
+ * Synchronise les favoris entre le localStorage (visiteurs)
+ * et l'API backend (utilisateurs connectés).
+ */
 "use client";
 
 import {
@@ -15,11 +21,20 @@ import {
   listFavoritesForUser,
 } from "@/services/favorites";
 
+/**
+ * Type du contexte des favoris.
+ * Expose la liste des favoris et les actions d'ajout/suppression.
+ */
 type FavoriteContextType = {
+  /** Liste des propriétés favorites */
   favorites: FavoriteListItem[];
+  /** Indique si les favoris sont en cours de chargement */
   isLoading: boolean;
+  /** Ajoute une propriété aux favoris */
   addFavorite: (fav: FavoriteListItem) => Promise<void>;
+  /** Retire une propriété des favoris */
   removeFavorite: (propertyId: string) => Promise<void>;
+  /** Recharge la liste des favoris */
   refreshFavorites: () => Promise<void>;
 };
 
@@ -27,8 +42,14 @@ const FavoriteContext = createContext<FavoriteContextType | undefined>(
   undefined,
 );
 
+/** Clé de stockage localStorage pour les favoris hors connexion */
 const LOCAL_STORAGE_KEY = "favorites";
 
+/**
+ * Provider de gestion des favoris.
+ * Utilise l'API si l'utilisateur est connecté, sinon le localStorage.
+ * @param props.children - Composants enfants ayant accès au contexte
+ */
 export const FavoriteProvider = ({ children }: { children: ReactNode }) => {
   const { user, isAuthenticated } = useAuth();
   const [favorites, setFavorites] = useState<FavoriteListItem[]>([]);
@@ -133,6 +154,11 @@ const defaultContext: FavoriteContextType = {
   refreshFavorites: async () => {},
 };
 
+/**
+ * Hook pour accéder au contexte des favoris.
+ * Retourne un contexte par défaut vide si utilisé en dehors du Provider.
+ * @returns L'état des favoris et les actions disponibles
+ */
 export const useFavorites = (): FavoriteContextType => {
   const context = useContext(FavoriteContext);
   return context ?? defaultContext;

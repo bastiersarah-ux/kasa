@@ -1,9 +1,14 @@
+/**
+ * @module favorites
+ * @description Service de gestion des favoris utilisateur.
+ */
 import { FavoriteActionResponse, FavoriteListItem } from "../types/api-types";
 import { fetchAPI } from "./fetch-api";
 
 /**
- * Ajoute une propriété aux favoris de l'utilisateur.
- * @param propertyId Id de la propriété.
+ * Ajoute une propriété aux favoris de l'utilisateur connecté.
+ * @param propertyId - Identifiant de la propriété à ajouter
+ * @returns Confirmation de l'ajout
  */
 export async function addFavorite(
   propertyId: string,
@@ -17,8 +22,9 @@ export async function addFavorite(
 }
 
 /**
- * Retire une propriété des favoris.
- * @param propertyId Id de la propriété.
+ * Retire une propriété des favoris de l'utilisateur connecté.
+ * @param propertyId - Identifiant de la propriété à retirer
+ * @returns Confirmation de la suppression
  */
 export async function removeFavorite(
   propertyId: string,
@@ -32,8 +38,9 @@ export async function removeFavorite(
 }
 
 /**
- * Liste les favoris d'un utilisateur.
- * @param userId Id utilisateur.
+ * Récupère la liste des favoris d'un utilisateur.
+ * @param userId - Identifiant de l'utilisateur
+ * @returns Liste des propriétés favorites
  */
 export async function listFavoritesForUser(
   userId: string | number,

@@ -1,11 +1,26 @@
+/**
+ * @module ErrorPage
+ * @description Page d'erreur globale de l'application.
+ * Affichée automatiquement par Next.js en cas d'erreur non gérée.
+ */
 "use client";
 
 import Link from "next/link";
 
+/** Props de la page d'erreur */
 type ErrorProps = {
+  /** Erreur capturée */
   error: Error;
+  /** Fonction pour retenter le rendu */
   reset: () => void;
 };
+
+/**
+ * Page d'erreur globale.
+ * Affiche le message d'erreur et un lien de retour à l'accueil.
+ * @param props - Erreur capturée et fonction de retry
+ * @returns Page d'erreur avec message et lien retour
+ */
 
 export default function Error({ error }: ErrorProps) {
   return (

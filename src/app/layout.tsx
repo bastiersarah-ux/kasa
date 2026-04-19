@@ -1,3 +1,8 @@
+/**
+ * @module RootLayout
+ * @description Layout racine de l'application Kasa.
+ * Configure les polices, le thème, le drawer mobile et les providers client.
+ */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import ClientProviders from "@/app/ClientProvider";
@@ -19,11 +24,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+/** Métadonnées globales de l'application */
 export const metadata: Metadata = {
   title: "Kasa",
   description: "Location d’appartements et de maisons entre particuliers.",
 };
 
+/**
+ * Layout racine de l'application.
+ * Englobe toutes les pages avec les polices, le thème,
+ * les providers client, le header, le footer et le drawer mobile.
+ * @param props.children - Contenu de la page courante
+ * @returns Le document HTML complet
+ */
 export default function RootLayout({
   children,
 }: {

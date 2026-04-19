@@ -1,19 +1,31 @@
+/**
+ * @module proxy
+ * @description Proxy API qui transfère les requêtes du client vers le backend.
+ * Gère l'injection du token JWT depuis les cookies httpOnly,
+ * le stockage automatique du token en cookie après connexion/inscription
+ * et la suppression du cookie en cas de 401.
+ */
 import { ACCESS_TOKEN_COOKIE } from "@/helpers/auth-cookie";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * URL de l'API backend
- * On utilise une variable d'environnement sinon localhost par défaut
+ * URL de l'API backend.
+ * Configurable via la variable d'environnement `NEXT_PUBLIC_API_URL`.
  */
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
-/** Durée de vie du cookie en secondes (1 semaine) */
-const ONE_WEEK_SECONDS = 60 * 60 * 24 * 7;
+/** Durée de vie du cookie d'authentification en secondes (24 heures) */
+const COOKIE_MAX_AGE = 60 * 60 * 24;
 
 /**
- * Fonction principale qui transfère les requêtes vers le backend
- * Elle gère les headers, le token JWT et les cookies
- * C'est le coeur du proxy
+ * Transfère une requête vers le backend API.
+ * - Retire le préfixe `/api/proxy` du chemin
+ * - Ajoute le préfixe `/api` sauf pour les routes `/auth`
+ * - Injecte le token JWT depuis les cookies
+ * - Stocke le token reçu en cookie httpOnly après authentification
+ * - Supprime le cookie en cas de réponse 401
+ * @param req - Requête Next.js entrante
+ * @returns Réponse du backend relayée au client
  */
 async function forwardRequest(req: NextRequest) {
   // On retire le préfixe /api/proxy pour avoir le vrai chemin
@@ -87,7 +99,7 @@ async function forwardRequest(req: NextRequest) {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
-        maxAge: ONE_WEEK_SECONDS,
+        maxAge: COOKIE_MAX_AGE,
         path: "/",
       });
     }
@@ -107,27 +119,42 @@ async function forwardRequest(req: NextRequest) {
   return response;
 }
 
-/** Handler GET */
+/**
+ * Handler GET — transfère les requêtes GET vers le backend.
+ * @param req - Requête entrante
+ */
 export async function GET(req: NextRequest) {
   return forwardRequest(req);
 }
 
-/** Handler POST */
+/**
+ * Handler POST — transfère les requêtes POST vers le backend.
+ * @param req - Requête entrante
+ */
 export async function POST(req: NextRequest) {
   return forwardRequest(req);
 }
 
-/** Handler PUT */
+/**
+ * Handler PUT — transfère les requêtes PUT vers le backend.
+ * @param req - Requête entrante
+ */
 export async function PUT(req: NextRequest) {
   return forwardRequest(req);
 }
 
-/** Handler PATCH */
+/**
+ * Handler PATCH — transfère les requêtes PATCH vers le backend.
+ * @param req - Requête entrante
+ */
 export async function PATCH(req: NextRequest) {
   return forwardRequest(req);
 }
 
-/** Handler DELETE */
+/**
+ * Handler DELETE — transfère les requêtes DELETE vers le backend.
+ * @param req - Requête entrante
+ */
 export async function DELETE(req: NextRequest) {
   return forwardRequest(req);
 }

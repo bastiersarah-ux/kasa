@@ -1,5 +1,17 @@
+/**
+ * @module MessagesPage
+ * @description Page de messagerie.
+ * Nécessite une authentification côté serveur.
+ * Affiche les fils de discussion et les messages.
+ */
 import ChatClient from "./ChatClient";
 import { requireAuth } from "@/helpers/require-auth";
+
+/**
+ * Page de messagerie serveur.
+ * Vérifie l'authentification puis charge les données de chat.
+ * @returns L'interface de messagerie
+ */
 
 export default async function MessagesPage() {
   // Vérification côté serveur

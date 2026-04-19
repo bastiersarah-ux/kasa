@@ -1,12 +1,26 @@
+/**
+ * @module FavoriteClient
+ * @description Composant client de la page des favoris.
+ * Affiche la grille des propriétés favorites avec synchronisation via le contexte.
+ */
 "use client";
 
 import PropertiesList from "@/app/components/properties/PropertiesList";
 import { FavoriteListItem } from "@/types/api-types";
 import { useFavorites } from "@/app/context/FavoriteContext";
 
+/** Props du composant FavoriteClient */
 type FavoriteClientProps = {
+  /** Favoris chargés côté serveur (utilisés comme fallback initial) */
   favorites: FavoriteListItem[];
 };
+
+/**
+ * Composant client affichant la liste des favoris.
+ * Utilise les favoris du contexte (temps réel) avec fallback sur les props serveur.
+ * @param props - Favoris initiaux chargés côté serveur
+ * @returns Grille de propriétés favorites ou message si vide
+ */
 
 export default function FavoriteClient({
   favorites: initialFavorites,

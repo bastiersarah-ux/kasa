@@ -1,3 +1,9 @@
+/**
+ * @module NotificationContext
+ * @description Système de notifications toast de l'application.
+ * Permet d'afficher des messages de succès, erreur, avertissement ou information
+ * avec auto-disparition après 5 secondes.
+ */
 "use client";
 
 import {

@@ -1,3 +1,9 @@
+/**
+ * @module AuthContext
+ * @description Contexte d'authentification de l'application.
+ * Gère l'état de connexion, la vérification automatique au montage
+ * et les actions login/logout/refresh.
+ */
 "use client";
 
 import { AuthUser } from "@/types/api-types";
@@ -11,19 +17,33 @@ import {
   useState,
 } from "react";
 
-/** Type du contexte d'authentification */
+/**
+ * Type du contexte d'authentification.
+ * Expose l'utilisateur connecté, l'état de chargement
+ * et les actions de connexion/déconnexion.
+ */
 type AuthContextType = {
+  /** Utilisateur actuellement connecté (null si déconnecté) */
   user: AuthUser | null;
+  /** Met à jour l'état de connexion avec les données utilisateur */
   login: (userData: AuthUser) => void;
+  /** Déconnecte l'utilisateur et redirige vers l'URL spécifiée */
   logout: (urlRedirect?: string) => Promise<void>;
+  /** Rafraîchit les données utilisateur depuis le serveur */
   refreshUser: () => Promise<void>;
+  /** Indique si un utilisateur est connecté */
   isAuthenticated: boolean;
+  /** Indique si la vérification initiale est en cours */
   isLoading: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-/** Provider pour gérer l'authentification */
+/**
+ * Provider d'authentification.
+ * Vérifie automatiquement l'état de connexion au montage en appelant `/api/auth/me`.
+ * @param props.children - Composants enfants ayant accès au contexte
+ */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -117,7 +137,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-/** Hook pour accéder au contexte d'auth */
+/**
+ * Hook pour accéder au contexte d'authentification.
+ * Doit être utilisé dans un composant enfant de `AuthProvider`.
+ * @returns L'état d'authentification et les actions disponibles
+ * @throws {Error} Si utilisé en dehors d'un AuthProvider
+ */
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context)

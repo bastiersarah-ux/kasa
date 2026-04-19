@@ -1,8 +1,24 @@
+/**
+ * @module fetch-api
+ * @description Client HTTP principal de l'application.
+ * Toutes les requêtes passent par le proxy Next.js `/api/proxy`.
+ */
+
+/** URL de base du proxy API Next.js */
 export const API_URL = "/api/proxy";
 
+/**
+ * Erreur de validation retournée par l'API.
+ * Contient la liste des erreurs par champ.
+ */
 export class ValidationError extends Error {
+  /** Liste des erreurs de validation par champ */
   errors: Array<{ field: string; message: string }>;
 
+  /**
+   * @param message - Message d'erreur global
+   * @param errors - Détail des erreurs par champ
+   */
   constructor(
     message: string,
     errors: Array<{ field: string; message: string }>,
@@ -13,11 +29,23 @@ export class ValidationError extends Error {
   }
 }
 
+/** Options de requête sans body typé (le body est sérialisé automatiquement) */
 type FetchAPIOptions = Omit<RequestInit, "body"> & {
   body?: any;
 };
 
-/** Wrapper fetch qui gère les headers et le parsing json */
+/**
+ * Effectue une requête HTTP vers l'API via le proxy Next.js.
+ * Gère automatiquement la sérialisation JSON, les cookies d'authentification
+ * côté serveur et la redirection vers `/auth/login` en cas de 401 côté client.
+ *
+ * @template T - Type de la réponse attendue
+ * @param path - Chemin de l'API (ex: `/properties`, `/auth/login`)
+ * @param options - Options de la requête (méthode, body, headers, etc.)
+ * @returns La réponse JSON typée
+ * @throws {ValidationError} Si l'API retourne des erreurs de validation
+ * @throws {Error} Pour toute autre erreur réseau ou serveur
+ */
 export async function fetchAPI<T = any>(
   path: string,
   options: FetchAPIOptions = {},

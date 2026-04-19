@@ -1,4 +1,14 @@
+/**
+ * @module NotFoundPage
+ * @description Page 404 affichée lorsqu'aucune route ne correspond.
+ */
 import Link from "next/link";
+
+/**
+ * Page 404 personnalisée.
+ * Affiche un message humoristique et des liens vers l'accueil et les logements.
+ * @returns La page 404
+ */
 
 export default function NotFound() {
   return (

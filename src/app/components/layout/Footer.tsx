@@ -1,8 +1,16 @@
+/**
+ * @module Footer
+ * @description Pied de page de l'application.
+ * Affiche le logo Kasa et les mentions légales.
+ */
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
-/** Footer de l'application */
+/**
+ * Composant Footer de l'application.
+ * @returns Le pied de page avec logo et copyright
+ */
 const Footer = () => {
   return (
     <footer className={styles.footer}>

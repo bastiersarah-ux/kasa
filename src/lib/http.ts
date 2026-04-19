@@ -1,11 +1,26 @@
+/**
+ * @module http
+ * @description Client HTTP bas-niveau pour les appels directs à l'API backend.
+ * Utilisé côté serveur pour les appels qui ne passent pas par le proxy.
+ */
 import { env } from "../config/env";
 import { ApiError } from "../types/api-types";
 import { cookies } from "next/headers";
 import { ACCESS_TOKEN_COOKIE } from "@/helpers/auth-cookie";
 
+/** URL de base de l'API backend (préfixée avec /api) */
 export const API_BASE = `${env.apiUrl}/api`;
+
+/** URL de base des routes d'authentification */
 export const AUTH_BASE = `${env.apiUrl}/auth`;
 
+/**
+ * Construit les en-têtes HTTP avec le token d'authentification.
+ * Récupère automatiquement le token depuis les cookies côté serveur.
+ * @param token - Token JWT explicite (optionnel)
+ * @param extra - En-têtes supplémentaires à fusionner
+ * @returns En-têtes HTTP prêts à être utilisés
+ */
 export async function buildHeaders(
   token?: string,
   extra: HeadersInit = {},
@@ -33,12 +48,17 @@ export async function buildHeaders(
   return headers;
 }
 
+/** Options de requête avec body JSON automatiquement sérialisé */
 type JsonRequestInit = Omit<RequestInit, "body"> & { body?: any };
 
 /**
- * Envoi une requête avec la fonction fetch
- * @param url Chemin absolu ou relatif à appeler.
- * @param options Méthode, corps JSON, en-têtes supplémentaires.
+ * Effectue une requête HTTP directe vers l'API backend.
+ * Gère la sérialisation JSON et l'authentification automatique.
+ * @template T - Type de la réponse attendue
+ * @param url - URL complète ou chemin relatif à appeler
+ * @param options - Méthode, corps JSON, en-têtes supplémentaires
+ * @returns La réponse JSON typée
+ * @throws {Error} Si la requête échoue ou retourne une erreur
  */
 export async function request<T>(
   url: string,

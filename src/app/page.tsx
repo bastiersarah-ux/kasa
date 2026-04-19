@@ -1,3 +1,9 @@
+/**
+ * @module HomePage
+ * @description Page d'accueil de l'application Kasa.
+ * Affiche la liste de toutes les propriétés disponibles
+ * ainsi qu'une section explicative "Comment ça marche".
+ */
 export const dynamic = "force-dynamic";
 
 import { listProperties } from "@/services";
@@ -7,6 +13,11 @@ import styles from "./page.module.css";
 import HomeImg from "@/public/home.svg";
 import Image from "next/image";
 
+/**
+ * Page d'accueil serveur.
+ * Récupère la liste des propriétés depuis l'API et les affiche en grille.
+ * @returns La page d'accueil complète
+ */
 export default async function HomePage() {
   const properties = await listProperties();
 
