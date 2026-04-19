@@ -18,7 +18,7 @@
 }
 
 .sidebarHeader {
-    padding: 20px;
+    padding: 20px 10px;
 }
 
 .title {
@@ -211,4 +211,66 @@
     border-radius: 8px;
     width: 40px;
     height: 40px;
+}
+
+/* Le bouton retour vers les conversations est masqué en desktop */
+.backToThreads {
+    display: none;
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        grid-column: 1;
+        grid-row: 1 / -1;
+    }
+
+    .messages {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .mobileHidden {
+        display: none;
+    }
+
+    .mobileVisible {
+        display: flex;
+        padding: 0;
+
+        section {
+            padding: 30px;
+        }
+
+        .btn-return-container {
+            padding: 20px 10px;
+            display: flex;
+            align-items: center;
+            background-color: white;
+
+            button {
+                margin: unset;
+            }
+        }
+    }
+
+    .messages.mobileVisible {
+        display: block;
+    }
+
+    .backToThreads {
+        display: inline-flex;
+    }
+
+    .inputContainer {
+        grid-column: 1;
+        grid-row: 2;
+        padding: 21px 30px;
+    }
 }

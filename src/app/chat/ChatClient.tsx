@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useNavigation } from "@/app/context/NavigationContext";
 import styles from "./ChatClient.module.css";
 
 type Thread = {
@@ -24,23 +26,47 @@ type ChatProps = {
 };
 
 export default function ChatClient({ threads, messages }: ChatProps) {
-  const [selectedThread, setSelectedThread] = useState<Thread | null>(
-    threads[0] || null,
+  const router = useRouter();
+  const { hasPreviousRoute } = useNavigation();
+  const [selectedThread, setSelectedThread] = useState<Thread | null>(null);
+  const [mobileView, setMobileView] = useState<"threads" | "messages">(
+    "threads",
   );
+
+  const handleSelectThread = (thread: Thread) => {
+    setSelectedThread(thread);
+    setMobileView("messages");
+  };
+
+  const handleBackToThreads = () => {
+    setMobileView("threads");
+  };
+
+  const handleBack = () => {
+    if (hasPreviousRoute) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
 
   return (
     <div className={styles.container}>
       {/* SIDEBAR */}
-      <div className={styles.sidebar}>
+      <div
+        className={`${styles.sidebar} ${mobileView === "threads" ? styles.mobileVisible : styles.mobileHidden}`}
+      >
         <div className={styles.sidebarHeader}>
-          <button className="btn btn-grey btn-sm mb-4">← Retour</button>
+          <button className="btn btn-grey btn-sm mb-4" onClick={handleBack}>
+            ← Retour
+          </button>
           <h1 className={styles.title}>Messages</h1>
         </div>
 
         {threads.map((thread) => (
           <div
             key={thread.id}
-            onClick={() => setSelectedThread(thread)}
+            onClick={() => handleSelectThread(thread)}
             className={`${styles.threadItem} ${
               selectedThread?.id === thread.id ? styles.threadActive : ""
             }`}
@@ -61,45 +87,61 @@ export default function ChatClient({ threads, messages }: ChatProps) {
         ))}
       </div>
 
-      <div className={styles.messages}>
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`${styles.messageRow} ${
-              msg.isOwner ? styles.messageRight : styles.messageLeft
-            }`}
+      <div
+        className={`${styles.messages} ${mobileView === "messages" ? styles.mobileVisible : styles.mobileHidden}`}
+      >
+        <div className={styles["btn-return-container"]}>
+          <button
+            className={`btn btn-grey btn-sm mb-4 ${styles.backToThreads}`}
+            onClick={handleBackToThreads}
           >
-            <div>
-              {/* HEADER (avatar + date) */}
-              <div
-                className={`${styles.messageHeader} ${
-                  msg.isOwner ? styles.messageHeaderRight : ""
-                }`}
-              >
-                {!msg.isOwner && <div className={styles.messageAvatar}></div>}
+            ← Retour
+          </button>
+        </div>
+        <section>
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              className={`${styles.messageRow} ${
+                msg.isOwner ? styles.messageRight : styles.messageLeft
+              }`}
+            >
+              <div>
+                {/* HEADER (avatar + date) */}
+                <div
+                  className={`${styles.messageHeader} ${
+                    msg.isOwner ? styles.messageHeaderRight : ""
+                  }`}
+                >
+                  {!msg.isOwner && <div className={styles.messageAvatar}></div>}
 
-                <span className={styles.messageMeta}>
-                  Utilisateur • {msg.date}
-                </span>
+                  <span className={styles.messageMeta}>
+                    Utilisateur • {msg.date}
+                  </span>
 
-                {msg.isOwner && <div className={styles.messageAvatar}></div>}
-              </div>
+                  {msg.isOwner && <div className={styles.messageAvatar}></div>}
+                </div>
 
-              {/* BULLE */}
-              <div
-                className={`${styles.messageBubble} ${
-                  msg.isOwner ? styles.messageOutgoing : styles.messageIncoming
-                }`}
-              >
-                {msg.content}
+                {/* BULLE */}
+                <div
+                  className={`${styles.messageBubble} ${
+                    msg.isOwner
+                      ? styles.messageOutgoing
+                      : styles.messageIncoming
+                  }`}
+                >
+                  {msg.content}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </section>
       </div>
 
       {/* INPUT */}
-      <div className={styles.inputContainer}>
+      <div
+        className={`${styles.inputContainer} ${mobileView === "messages" ? styles.mobileVisible : styles.mobileHidden}`}
+      >
         <textarea
           className={styles.textarea}
           placeholder="Envoyer un message"

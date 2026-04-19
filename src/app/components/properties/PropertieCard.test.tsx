@@ -9,11 +9,13 @@ const {
   mockRemoveFavorite,
   mockFavorites,
   mockIsAuthenticated,
+  mockPush,
 } = vi.hoisted(() => ({
   mockAddFavorite: vi.fn(() => Promise.resolve()),
   mockRemoveFavorite: vi.fn(() => Promise.resolve()),
   mockFavorites: { value: [] as FavoriteListItem[] },
   mockIsAuthenticated: { value: true },
+  mockPush: vi.fn(),
 }));
 
 vi.mock("@/app/context/AuthContext", () => ({
@@ -40,6 +42,17 @@ vi.mock("next/link", () => ({
       {children}
     </a>
   ),
+}));
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: mockPush,
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+  }),
 }));
 
 const mockProperty = {
@@ -114,5 +127,6 @@ describe("PropertieCard — Favoris", () => {
 
     expect(mockAddFavorite).not.toHaveBeenCalled();
     expect(mockRemoveFavorite).not.toHaveBeenCalled();
+    expect(mockPush).toHaveBeenCalledWith("/auth/login");
   });
 });

@@ -8,6 +8,7 @@ import LineIcon from "@/public/line.svg";
 import FavoriteIcon from "@/public/favorite.svg";
 import KasaIcon from "@/public/kasa-full.svg";
 import KasaIconMobile from "@/public/kasa.svg";
+import MenuMobileIcon from "@/public/menu-mobile.svg";
 import Link from "next/link";
 
 /** Header de l'application avec navigation */
@@ -28,7 +29,7 @@ const Header = () => {
         </div>
 
         <div className={styles.end}>
-          <Link href="/">+Ajouter un logement</Link>
+          <Link href="#">+Ajouter un logement</Link>
 
           <section>
             <Link href="/chat">
@@ -49,9 +50,7 @@ const Header = () => {
           className={styles.hamburger}
           aria-label="Ouvrir le menu"
         >
-          <span />
-          <span />
-          <span />
+          <Image src={MenuMobileIcon} alt="Menu" />
         </label>
       </nav>
     </header>

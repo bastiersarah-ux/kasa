@@ -9,13 +9,10 @@ export default function AboutSection() {
       <section className={styles.section1}>
         <div className="text-center space-y-4">
           <h1>À propos</h1>
-          <div>
-            <h3 className="max-w-2xl mx-auto">
-              Chez Kasa, nous croyons que chaque voyage mérite un lieu unique où
-              se sentir bien.
-            </h3>
-          </div>
-          <h3 className="text">
+          <h3 className="max-w-2xl mx-auto">
+            Chez Kasa, nous croyons que chaque voyage mérite un lieu unique où
+            se sentir bien.
+            <br /> <br />
             Depuis notre création, nous mettons en relation des voyageurs en
             quête d’authenticité avec des hôtes passionnés qui aiment partager
             leur région et leurs bonnes adresses.
@@ -31,34 +28,27 @@ export default function AboutSection() {
         </div>
       </section>
 
-      <section className="{styles.section2}">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <span>Notre mission est simple :</span>
+      <section className={styles.section2}>
+        <div className={styles.description}>
+          <span>Notre mission est simple :</span>
 
-            <ul className="list-decimal list-inside text-sm font-normal space-y-2">
-              <li>Offrir une plateforme fiable et simple d’utilisation</li>
-              <li>Proposer des hébergements variés et de qualité</li>
-              <li>
-                Favoriser des échanges humains et chaleureux entre hôtes et
-                voyageurs
-              </li>
-            </ul>
+          <ul className="list-decimal list-inside text-sm font-normal space-y-2">
+            <li>Offrir une plateforme fiable et simple d’utilisation</li>
+            <li>Proposer des hébergements variés et de qualité</li>
+            <li>
+              Favoriser des échanges humains et chaleureux entre hôtes et
+              voyageurs
+            </li>
+          </ul>
+        </div>
+        <span className="font-medium!">
+          Que vous cherchiez un appartement cosy en centre-ville, une maison en
+          bord de mer ou un chalet à la montagne, Kasa vous accompagne pour que
+          chaque séjour devienne un souvenir inoubliable.
+        </span>
 
-            <span className="font-medium!">
-              Que vous cherchiez un appartement cosy en centre-ville, une maison
-              en bord de mer ou un chalet à la montagne, Kasa vous accompagne
-              pour que chaque séjour devienne un souvenir inoubliable.
-            </span>
-          </div>
-
-          <div className="rounded-[20px] overflow-hidden">
-            <Image
-              src={AboutImg2}
-              alt="Photo page à propos"
-              className="w-full"
-            />
-          </div>
+        <div className={styles.img}>
+          <Image src={AboutImg2} alt="Photo page à propos" className="w-full" />
         </div>
       </section>
     </main>

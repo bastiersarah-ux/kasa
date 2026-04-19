@@ -18,8 +18,9 @@ const ONE_WEEK_SECONDS = 60 * 60 * 24 * 7;
 async function forwardRequest(req: NextRequest) {
   // On retire le préfixe /api/proxy pour avoir le vrai chemin
   const path = req.nextUrl.pathname.replace(/^\/api\/proxy/, "");
-  // Le backend a ses routes sous /api, donc on ajoute /api au path
-  const targetUrl = `${API_URL}/api${path}${req.nextUrl.search}`;
+  // Les routes /auth sont montées à la racine du backend, les autres sous /api
+  const prefix = path.startsWith("/auth") ? "" : "/api";
+  const targetUrl = `${API_URL}${prefix}${path}${req.nextUrl.search}`;
 
   // GET et HEAD n'ont pas de body
   const body =
