@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ACCESS_TOKEN_COOKIE } from "src/helpers/auth-cookie";
+import { ACCESS_TOKEN_COOKIE } from "@/helpers/auth-cookie";
 
 export async function GET(request: NextRequest) {
   const token = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;

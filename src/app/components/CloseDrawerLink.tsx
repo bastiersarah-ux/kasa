@@ -7,12 +7,14 @@ interface CloseDrawerLinkProps {
   href: string;
   children: ReactNode;
   className?: string;
+  ariaLabel?: string;
 }
 
 export default function CloseDrawerLink({
   href,
   children,
   className = "",
+  ariaLabel,
 }: CloseDrawerLinkProps) {
   const handleClick = () => {
     const checkbox = document.getElementById(
@@ -24,7 +26,12 @@ export default function CloseDrawerLink({
   };
 
   return (
-    <Link href={href} className={className} onClick={handleClick}>
+    <Link
+      href={href}
+      className={className}
+      onClick={handleClick}
+      {...(ariaLabel ? { "aria-label": ariaLabel } : {})}
+    >
       {children}
     </Link>
   );

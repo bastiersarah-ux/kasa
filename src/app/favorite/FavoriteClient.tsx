@@ -37,11 +37,11 @@ export default function FavoriteClient({
     <div className="flex-1 page-content mx-auto p-4">
       <div className="flex flex-col w-full text-center justify-center">
         <h1>Vos favoris</h1>
-        <h3>
+        <h2 className="h3">
           Retrouvez ici tous les logements que vous avez aimés.
           <br /> Prêts à réserver ? Un simple clic et votre prochain séjour est
           en route.
-        </h3>
+        </h2>
       </div>
       <PropertiesList
         properties={favorites.length ? favorites : initialFavorites}

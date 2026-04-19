@@ -28,27 +28,25 @@ export default function PropertyInfo({ property }: Props) {
         {property.description && <p>{property.description}</p>}
 
         {property.equipments?.length > 0 && (
-          <div className="collapse collapse-arrow bg-white">
-            <input type="checkbox" />
-            <div className="collapse-title font-medium px-0 h4 text-black!">
+          <details className="collapse collapse-arrow bg-white">
+            <summary className="collapse-title font-medium px-0 h4 text-black!">
               Équipements
-            </div>
+            </summary>
             <div className="collapse-content px-0">
               <EquipmentList equipments={property.equipments} />
             </div>
-          </div>
+          </details>
         )}
 
         {property.tags?.length > 0 && (
-          <div className="collapse collapse-arrow  bg-white">
-            <input type="checkbox" />
-            <div className="collapse-title font-medium px-0 h4 text-black!">
+          <details className="collapse collapse-arrow bg-white">
+            <summary className="collapse-title font-medium px-0 h4 text-black!">
               Catégories
-            </div>
+            </summary>
             <div className="collapse-content px-0">
               <CategoryList tags={property.tags} />
             </div>
-          </div>
+          </details>
         )}
       </div>
     </div>

@@ -142,7 +142,11 @@ export default function ChatClient({ threads, messages }: ChatProps) {
       <div
         className={`${styles.inputContainer} ${mobileView === "messages" ? styles.mobileVisible : styles.mobileHidden}`}
       >
+        <label htmlFor="chat-message" className="sr-only">
+          Envoyer un message
+        </label>
         <textarea
+          id="chat-message"
           className={styles.textarea}
           placeholder="Envoyer un message"
         />

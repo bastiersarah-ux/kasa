@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthUser } from "src/types/api-types";
+import { AuthUser } from "@/types/api-types";
 import { useRouter } from "next/navigation";
 import {
   createContext,

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import PropertieCard from "./PropertieCard";
+import FavoriteButton from "./FavoriteButton";
 import type { FavoriteListItem } from "@/types/api-types";
 
 // Hoisted mocks
@@ -66,7 +66,7 @@ const mockProperty = {
   ratings_count: 42,
 };
 
-describe("PropertieCard — Favoris", () => {
+describe("FavoriteButton", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockFavorites.value = [];
@@ -74,7 +74,7 @@ describe("PropertieCard — Favoris", () => {
   });
 
   it("Le cœur n'est pas rempli quand la propriété n'est pas en favori", () => {
-    render(<PropertieCard property={mockProperty} />);
+    render(<FavoriteButton property={mockProperty} />);
 
     const button = screen.getByRole("button", { name: /Ajouter aux favoris/i });
     const svg = button.querySelector("svg");
@@ -85,7 +85,7 @@ describe("PropertieCard — Favoris", () => {
   it("Le cœur est rempli et le bouton a la classe active quand la propriété est en favori", () => {
     mockFavorites.value = [mockProperty as FavoriteListItem];
 
-    render(<PropertieCard property={mockProperty} />);
+    render(<FavoriteButton property={mockProperty} />);
 
     const button = screen.getByRole("button", { name: /Retirer des favoris/i });
     const svg = button.querySelector("svg");
@@ -94,7 +94,7 @@ describe("PropertieCard — Favoris", () => {
   });
 
   it("Cliquer sur le cœur appelle addFavorite quand non-favori", async () => {
-    render(<PropertieCard property={mockProperty} />);
+    render(<FavoriteButton property={mockProperty} />);
 
     const button = screen.getByRole("button", { name: /Ajouter aux favoris/i });
     fireEvent.click(button);
@@ -107,7 +107,7 @@ describe("PropertieCard — Favoris", () => {
   it("Cliquer sur le cœur appelle removeFavorite quand déjà favori", async () => {
     mockFavorites.value = [mockProperty as FavoriteListItem];
 
-    render(<PropertieCard property={mockProperty} />);
+    render(<FavoriteButton property={mockProperty} />);
 
     const button = screen.getByRole("button", { name: /Retirer des favoris/i });
     fireEvent.click(button);
@@ -120,7 +120,7 @@ describe("PropertieCard — Favoris", () => {
   it("Le clic ne déclenche rien si l'utilisateur n'est pas authentifié", async () => {
     mockIsAuthenticated.value = false;
 
-    render(<PropertieCard property={mockProperty} />);
+    render(<FavoriteButton property={mockProperty} />);
 
     const button = screen.getByRole("button", { name: /Ajouter aux favoris/i });
     fireEvent.click(button);

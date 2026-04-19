@@ -6,6 +6,7 @@ import Footer from "./components/layout/Footer";
 import CloseDrawerButton from "@/app/components/CloseDrawerButton";
 import CloseDrawerLink from "@/app/components/CloseDrawerLink";
 import Image from "next/image";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,20 +35,24 @@ export default function RootLayout({
         <h1 className="hidden">Kasa</h1>
 
         <ClientProviders>
-          <div className="drawer drawer-mobile h-full">
+          <div className="drawer drawer-mobile flex-1">
             <input
               id="drawer-toggle"
               type="checkbox"
               className="drawer-toggle"
-              aria-label="Menu de navigation"
+              aria-hidden="true"
+              tabIndex={-1}
             />
             <div className="drawer-content flex flex-col">
               <Header />
-              {children}
+              <main className="flex flex-col flex-1">{children}</main>
               <Footer />
             </div>
             <div className="drawer-side">
-              <label htmlFor="drawer-toggle" className="drawer-overlay"></label>
+              <CloseDrawerButton
+                className="drawer-overlay"
+                aria-label="Fermer le menu"
+              />
               <aside className="menu gap-6 h-full py-4 w-97 max-w-full bg-base-100 text-base-content">
                 <div className="flex px-4 w-full justify-between items-center">
                   <Image
@@ -56,12 +61,12 @@ export default function RootLayout({
                     width={46.04}
                     height={53.36}
                   />
-                  <label
-                    htmlFor="drawer-toggle"
+                  <CloseDrawerButton
                     className="btn btn-transparent btn-circle btn-ghost text-3xl! cursor-pointer"
+                    aria-label="Fermer le menu"
                   >
                     ✕
-                  </label>
+                  </CloseDrawerButton>
                 </div>
                 <ul className="space-2">
                   <li>

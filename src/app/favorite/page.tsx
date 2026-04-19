@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import FavoriteClient from "./FavoriteClient";
 import { listFavoritesForUser } from "@/services/favorites";
 import { FavoriteListItem } from "@/types/api-types";

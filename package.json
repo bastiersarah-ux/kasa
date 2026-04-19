@@ -5,29 +5,35 @@
   "scripts": {
     "dev": "next dev  -p 4000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4000",
     "lint": "eslint",
     "test": "vitest"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ],
   "dependencies": {
-    "next": "16.1.7",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "next": "16.2.4",
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/node": "^20",
+    "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.1",
     "daisyui": "^5.5.19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.7",
+    "eslint": "^10",
+    "eslint-config-next": "16.2.4",
     "jsdom": "^29.0.2",
     "tailwindcss": "^4",
-    "typescript": "^5",
+    "typescript": "^6",
     "vitest": "^4.1.4"
   }
 }

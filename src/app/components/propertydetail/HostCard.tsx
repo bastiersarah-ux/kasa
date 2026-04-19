@@ -23,7 +23,8 @@ export default function HostCard({ host, rating, ratingCount }: HostCardProps) {
       <div className="flex items-center gap-4.5 mb-6">
         <img
           src={host.picture || "/default-avatar.png"}
-          alt={host.name}
+          alt=""
+          role="presentation"
           className="w-16 h-16 rounded-lg object-cover"
         />
 
@@ -47,11 +48,19 @@ export default function HostCard({ host, rating, ratingCount }: HostCardProps) {
       </div>
 
       <div className="flex flex-col gap-3">
-        <Link href="/chat" className="btn btn-red">
-          Contacter l’hôte
+        <Link
+          href="/chat#"
+          className="btn btn-red"
+          aria-label={`Contacter ${host.name}`}
+        >
+          Contacter l'hôte
         </Link>
 
-        <Link href="/chat" className="btn btn-red">
+        <Link
+          href="/chat"
+          className="btn btn-red"
+          aria-label={`Envoyer un message à ${host.name}`}
+        >
           Envoyer un message
         </Link>
       </div>

@@ -5,25 +5,27 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <main className={`page-content ${styles.about}`}>
+    <div className={`page-content ${styles.about}`}>
       <section className={styles.section1}>
         <div className="text-center space-y-4">
           <h1>À propos</h1>
-          <h3 className="max-w-2xl mx-auto">
+          <h2 className="h3 max-w-2xl mx-auto">
             Chez Kasa, nous croyons que chaque voyage mérite un lieu unique où
             se sentir bien.
             <br /> <br />
             Depuis notre création, nous mettons en relation des voyageurs en
             quête d’authenticité avec des hôtes passionnés qui aiment partager
             leur région et leurs bonnes adresses.
-          </h3>
+          </h2>
         </div>
 
         <div className="rounded-[20px]">
           <Image
             src={AboutImg1}
-            alt="Photo page à propos"
+            alt="Voyageurs dans un hébergement Kasa"
             className="w-full object-cover"
+            loading="eager"
+            priority
           />
         </div>
       </section>
@@ -48,9 +50,15 @@ export default function AboutSection() {
         </span>
 
         <div className={styles.img}>
-          <Image src={AboutImg2} alt="Photo page à propos" className="w-full" />
+          <Image
+            src={AboutImg2}
+            alt="Hôte accueillant des voyageurs"
+            className="w-full"
+            loading="eager"
+            priority
+          />
         </div>
       </section>
-    </main>
+    </div>
   );
 }

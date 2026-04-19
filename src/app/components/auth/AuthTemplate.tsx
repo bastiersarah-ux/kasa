@@ -92,7 +92,7 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
   }
 
   return (
-    <main className={styles["page-content"]}>
+    <div className={styles["page-content"]}>
       <section>
         <form onSubmit={handleSubmit} className={styles.card}>
           <h1>
@@ -101,16 +101,18 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
               : "Rejoignez la communauté Kasa"}
           </h1>
 
-          <h3>
+          <h2 className="h3">
             {isLogin
               ? "Connectez-vous pour retrouver vos réservations, vos annonces et tout ce qui rend vos séjours uniques."
               : "Créez votre compte et commencez à voyager autrement : réservez des logements uniques, découvrez de nouvelles destinations et partagez vos propres lieux avec d’autres voyageurs."}
-          </h3>
+          </h2>
 
           {!isLogin && (
             <>
-              <fieldset className={styles.fieldset}>
-                <legend className={styles.label}>Prénom</legend>
+              <div className={styles.fieldset}>
+                <label htmlFor="firstName" className={styles.label}>
+                  Prénom
+                </label>
                 <input
                   id="firstName"
                   type="text"
@@ -127,10 +129,12 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
                 {fieldErrors.firstName && (
                   <span className={styles.error}>{fieldErrors.firstName}</span>
                 )}
-              </fieldset>
+              </div>
 
-              <fieldset className={styles.fieldset}>
-                <legend className={styles.label}>Nom</legend>
+              <div className={styles.fieldset}>
+                <label htmlFor="lastName" className={styles.label}>
+                  Nom
+                </label>
                 <input
                   id="lastName"
                   type="text"
@@ -147,12 +151,14 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
                 {fieldErrors.lastName && (
                   <span className={styles.error}>{fieldErrors.lastName}</span>
                 )}
-              </fieldset>
+              </div>
             </>
           )}
 
-          <fieldset className={styles.fieldset}>
-            <legend className={styles.label}>Adresse email</legend>
+          <div className={styles.fieldset}>
+            <label htmlFor="email" className={styles.label}>
+              Adresse email
+            </label>
             <input
               id="email"
               type="text"
@@ -169,10 +175,12 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
             {fieldErrors.email && (
               <span className={styles.error}>{fieldErrors.email}</span>
             )}
-          </fieldset>
+          </div>
 
-          <fieldset className={styles.fieldset}>
-            <legend className={styles.label}>Mot de passe</legend>
+          <div className={styles.fieldset}>
+            <label htmlFor="password" className={styles.label}>
+              Mot de passe
+            </label>
             <input
               id="password"
               type="password"
@@ -189,7 +197,7 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
             {fieldErrors.password && (
               <span className={styles.error}>{fieldErrors.password}</span>
             )}
-          </fieldset>
+          </div>
 
           {!isLogin && (
             <label className={styles.checkboxWrapper}>
@@ -230,6 +238,6 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
           )}
         </form>
       </section>
-    </main>
+    </div>
   );
 }

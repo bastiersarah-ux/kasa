@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_COOKIE } from "src/helpers/auth-cookie";
+import { ACCESS_TOKEN_COOKIE } from "@/helpers/auth-cookie";
 import { NextResponse } from "next/server";
 
 export async function POST() {

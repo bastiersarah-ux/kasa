@@ -24,7 +24,12 @@ const Header = () => {
         </div>
 
         <div className={styles.logo}>
-          <Image src={KasaIcon} alt="Icône kasa" className="max-md:hidden" />
+          <Image
+            src={KasaIcon}
+            alt="Icône kasa"
+            className="max-md:hidden"
+            loading="eager"
+          />
           <Image src={KasaIconMobile} alt="Icône kasa" className="md:hidden" />
         </div>
 
@@ -35,7 +40,11 @@ const Header = () => {
             <Link href="/chat">
               <Image src={ChatIcon} alt="Icône chat" className="w-4 h-4" />
             </Link>
-            <Image src={LineIcon} alt="Icône ligne" className="w-1.25 h-1.25" />
+            <Image
+              src={LineIcon}
+              alt="Icône ligne"
+              style={{ height: "auto" }}
+            />
             <Link href="/favorite">
               <Image
                 src={FavoriteIcon}

@@ -8,12 +8,12 @@ import {
   useState,
 } from "react";
 import { useAuth } from "./AuthContext";
-import { FavoriteListItem } from "src/types/api-types";
+import { FavoriteListItem } from "@/types/api-types";
 import {
   addFavorite as addFavoriteService,
   removeFavorite as removeFavoriteService,
   listFavoritesForUser,
-} from "src/services/favorites";
+} from "@/services/favorites";
 
 type FavoriteContextType = {
   favorites: FavoriteListItem[];

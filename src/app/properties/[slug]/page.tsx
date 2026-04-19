@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getPropertyBySlug } from "@/services";
 import { notFound } from "next/navigation";
 import PropertyDetailClient from "./PropertyDetailClient";

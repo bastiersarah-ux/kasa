@@ -3,13 +3,15 @@
 import { ReactNode } from "react";
 
 interface CloseDrawerButtonProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
+  "aria-label"?: string;
 }
 
 export default function CloseDrawerButton({
   children,
   className = "",
+  "aria-label": ariaLabel,
 }: CloseDrawerButtonProps) {
   const handleClick = () => {
     const checkbox = document.getElementById(
@@ -21,7 +23,7 @@ export default function CloseDrawerButton({
   };
 
   return (
-    <button className={className} onClick={handleClick}>
+    <button className={className} onClick={handleClick} aria-label={ariaLabel}>
       {children}
     </button>
   );

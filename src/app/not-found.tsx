@@ -10,10 +10,14 @@ export default function NotFound() {
           n’ait jamais existé.
         </p>
         <div className="flex flex-col gap-5 w-50 max-w-50">
-          <Link href={"/"} className="btn btn-red w-full">
+          <Link href="/" className="btn btn-red w-full">
             Accueil
           </Link>
-          <Link href={"/"} className="btn btn-red w-full">
+          <Link
+            href="/#logements"
+            className="btn btn-red w-full"
+            aria-label="Voir les logements disponibles"
+          >
             Logements
           </Link>
         </div>
