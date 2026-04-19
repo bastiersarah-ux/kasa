@@ -31,8 +31,44 @@ export default async function PropertyDetailPage({
 
   if (!property) notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    name: property.title,
+    ...(property.description && { description: property.description }),
+    ...(property.cover && { image: [property.cover, ...property.pictures] }),
+    ...(property.location && {
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: property.location,
+      },
+    }),
+    ...(property.rating_avg > 0 &&
+      property.ratings_count > 0 && {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: property.rating_avg,
+          reviewCount: property.ratings_count,
+          bestRating: 5,
+          worstRating: 1,
+        },
+      }),
+    priceRange: `${property.price_per_night} EUR`,
+    ...(property.equipments?.length && {
+      amenityFeature: property.equipments.map((e) => ({
+        "@type": "LocationFeatureSpecification",
+        name: e,
+        value: true,
+      })),
+    }),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <PropertyDetailClient property={property} />
     </>
   );
