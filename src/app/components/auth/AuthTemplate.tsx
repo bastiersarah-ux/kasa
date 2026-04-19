@@ -202,7 +202,10 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
                 {fieldErrors.terms && (
                   <span className={styles.error}>{fieldErrors.terms}</span>
                 )}
-                J’accepte les <a href="#">conditions générales d’utilisation</a>
+                J’accepte les{" "}
+                <a href="#" className="text-black! underline!">
+                  conditions générales d’utilisation
+                </a>
               </span>
             </label>
           )}
@@ -221,9 +224,9 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
               Pas encore de compte ? <strong>Inscrivez-vous</strong>
             </Link>
           ) : (
-            <>
-              Déjà membre ? <Link href="/auth/login">Se connecter</Link>
-            </>
+            <Link href="/auth/login">
+              Déjà membre ? <strong>Se connecter</strong>
+            </Link>
           )}
         </form>
       </section>
