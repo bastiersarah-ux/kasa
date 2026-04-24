@@ -27,14 +27,6 @@ export default function FavoriteClient({
 }: FavoriteClientProps) {
   const { favorites, isLoading } = useFavorites();
 
-  // Si le context est vide au démarrage, on peut initialiser avec les props
-  // (optionnel, selon comment tu veux gérer la sync)
-  // useEffect(() => {
-  //   if (favorites.length === 0 && initialFavorites.length > 0) {
-  //     refreshFavorites(initialFavorites);
-  //   }
-  // }, []);
-
   if (isLoading) {
     return <p>Chargement des favoris...</p>;
   }

@@ -115,7 +115,7 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
               : "Rejoignez la communauté Kasa"}
           </h1>
 
-          <h2 className="h3">
+          <h2 className="h3 text-center">
             {isLogin
               ? "Connectez-vous pour retrouver vos réservations, vos annonces et tout ce qui rend vos séjours uniques."
               : "Créez votre compte et commencez à voyager autrement : réservez des logements uniques, découvrez de nouvelles destinations et partagez vos propres lieux avec d’autres voyageurs."}
@@ -220,12 +220,12 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
                 checked={acceptedTerms}
                 onChange={(e) => setAcceptedTerms(e.target.checked)}
               />
-              <span>
+              <span className="inline">
                 {fieldErrors.terms && (
                   <span className={styles.error}>{fieldErrors.terms}</span>
                 )}
                 J’accepte les{" "}
-                <a href="#" className="text-black! underline!">
+                <a href="#" className="underline!">
                   conditions générales d’utilisation
                 </a>
               </span>
@@ -239,14 +239,18 @@ export default function AuthTemplate({ isLogin }: AuthTemplateProps) {
             {isLogin ? "Se connecter" : "S'inscrire"}
           </button>
 
-          {isLogin && <Link href="#">Mot de passe oublié ?</Link>}
+          {isLogin && (
+            <Link className={styles.link} href="#">
+              Mot de passe oublié ?
+            </Link>
+          )}
 
           {isLogin ? (
-            <Link href="/auth/register">
+            <Link className={styles.link} href="/auth/register">
               Pas encore de compte ? <strong>Inscrivez-vous</strong>
             </Link>
           ) : (
-            <Link href="/auth/login">
+            <Link className={styles.link} href="/auth/login">
               Déjà membre ? <strong>Se connecter</strong>
             </Link>
           )}

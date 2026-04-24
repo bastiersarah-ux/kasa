@@ -57,12 +57,20 @@
     gap: 8px;
     font-size: 12px;
     color: #565656;
-}
 
-.checkboxWrapper input {
-    margin-top: -1px;
-}
+    input {
+        margin-top: -1px;
+    }
 
+    >span {
+        font-size: 11px;
+        color: #565656;
+
+        a {
+            color: inherit;
+        }
+    }
+}
 
 
 .input:focus {
@@ -97,5 +105,8 @@
     color: var(--color-primary);
     font-size: 14px;
     text-align: center;
-    text-decoration: underline;
+
+    strong:hover {
+        text-decoration: underline;
+    }
 }

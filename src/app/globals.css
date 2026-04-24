@@ -137,7 +137,7 @@ body {
     }
 
     .page-content {
-      padding-inline: 140px;
+      padding-inline: 234px;
     }
   }
 
@@ -145,6 +145,10 @@ body {
     display: grid;
     grid-template-columns: repeat(3, minmax(max-content, 120px));
     gap: 8px;
+
+    @media screen and (max-width: 48rem) {
+      grid-template-columns: repeat(auto-fit, minmax(max-content, 140px));
+    }
 
     >.badge {
       width: 100%;
@@ -159,5 +163,7 @@ body {
       border-color: transparent;
     }
   }
+
+
 
 }

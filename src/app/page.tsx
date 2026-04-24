@@ -36,7 +36,7 @@ export default async function HomePage() {
         src={HomeImg}
         alt="Photo page d'accueil"
         className="w-full"
-        style={{ height: "auto" }}
+        style={{ height: "458px" }}
         priority
         loading="eager"
       />
@@ -48,7 +48,7 @@ export default async function HomePage() {
           Comment ça marche ?
         </h3>
 
-        <h3 className="text-black">
+        <h3 className="text-black md:px-60">
           Que vous partiez pour un week-end improvisé, des vacances en famille
           ou un voyage professionnel, Kasa vous aide à trouver un lieu qui vous
           ressemble.

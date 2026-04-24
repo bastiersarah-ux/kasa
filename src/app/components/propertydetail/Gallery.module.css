@@ -2,7 +2,7 @@
 
 .mosaic {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
     grid-template-rows: 420px;
 
@@ -12,7 +12,7 @@
     }
 
     .mainImage {
-        border-radius: 12px 0 0 12px;
+        border-radius: 12px;
     }
 }
 
